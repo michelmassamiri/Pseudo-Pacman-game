@@ -1,22 +1,22 @@
-package Controleur;
+package Controller;
 
 import Model.Model;
-import Vue.Vue;
+import View.View;
 
-public class Controleur {
+public class Controller {
 
 	private Model model;
-	private Vue vue;
+	private View view;
 	
 	/**
 	 * Constructeur du Controleur permettant la gestion des evennements dans le programme.
 	 * @param m Model du design pattern MVC
 	 * @param v Vue du design pattern MVC
 	 */
-	public Controleur(Model m, Vue v)
+	public Controller(Model m, View v)
 	{
 		model = m;
-		vue = v;
+		view = v;
 	}
 	
 }
