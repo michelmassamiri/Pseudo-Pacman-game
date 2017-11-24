@@ -28,7 +28,7 @@ public class ViewFrame {
 	
 	public void start(Stage primaryStage){
 		primaryStage.setTitle("Pseudo PAC-MAN");
-		drawFrame(primaryStage, nbx, nby);
+		//drawFrame(primaryStage, nbx, nby);
 		primaryStage.show();
 	}
 	
@@ -80,12 +80,12 @@ public class ViewFrame {
 	private void drawObject(String nameJPG){
 		Image image = new Image( getClass().getResource(nameJPG).toExternalForm());
 		imageView = new ImageView(image);
-		Frame.pane.getChildren().add(this.imageView);
+		/*Frame.pane.getChildren().add(this.imageView);
 		double xt = (int) ((ViewFrame.WALL + sprite.getX() * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
 		double yt = (int) ((ViewFrame.WALL + sprite.getY() * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
 		
 		imageView.setX(xt);
-		imageView.setY(yt);
+		imageView.setY(yt);*/
 	}
 	
 }
