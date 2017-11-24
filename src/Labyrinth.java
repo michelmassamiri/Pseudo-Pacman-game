@@ -1,19 +1,20 @@
-import Controller.Controller;
+import Controller.GameController;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Labyrinth extends Application{
-
+	private static GameController game;
+	
 	public static void main(String[] args) {
-		launch();
+		game = GameController.getInstance();
+		launch(args);
 	}
 	
 	
 	@Override
 	public void start(Stage stage) {
-		Controller.makeInstance();
-		Controller.start(stage);
+		game.start(stage);
 		
 	}
 	
