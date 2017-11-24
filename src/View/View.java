@@ -1,12 +1,12 @@
-package Vue;
+package View;
 
 import Model.Model;
 
-public class Vue {
+public class View {
 
 	private Model model;
 	
-	public Vue(Model m)
+	public View(Model m)
 	{
 		model = m;
 	}
