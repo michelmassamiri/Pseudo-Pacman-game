@@ -29,7 +29,15 @@ public class ViewFrame {
 	public void start(Stage primaryStage){
 		primaryStage.setTitle("Pseudo PAC-MAN");
 		drawFrame(primaryStage, 10, 10);
-		drawObject("player.png");
+		drawObject("player.png", 0, 0);
+		drawObject("bad.png", 0, 1);
+		drawObject("button_close.png", 0, 2);
+		drawObject("button_open.png", 0, 3);
+		drawObject("candy-1.png", 0, 4);
+		drawObject("candy-2.png", 0, 5);
+		drawObject("candy-3.png", 0, 6);
+		drawObject("candy-4.png", 0, 7);
+		drawObject("door_open.png", 0, 8);
 		primaryStage.show();
 	}
 	
@@ -46,7 +54,7 @@ public class ViewFrame {
 						((WALL + CELL) * nbrX + WALL)* SPAN, 
 						((WALL + CELL) * nbrY + WALL)* SPAN);
 		scene.setFill(Color.WHITE);
-		
+			
 		stage.setScene(scene);
 		
 	}
@@ -84,14 +92,14 @@ public class ViewFrame {
 	
 	/**
 	 * Create the object in the frame with sprite in the nameJPG
-	 * @param nameJPG String name of file which content sprite. nameJPG must be ./Image/nameofJPG
+	 * @param nameJPG String name of file which content sprite.
 	 */
-	private void drawObject(String nameJPG){
+	private void drawObject(String nameJPG, int x, int y){
 		Image image = new Image( getClass().getResource(nameJPG).toExternalForm());
 		ImageView sprite= new ImageView(image);
 		pane.getChildren().add(sprite);
-		double xt = (int) ((ViewFrame.WALL + sprite.getX() * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
-		double yt = (int) ((ViewFrame.WALL + sprite.getY() * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
+		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN) ;
+		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN) ;
 		
 		sprite.setX(xt);
 		sprite.setY(yt);
