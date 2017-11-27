@@ -1,7 +1,9 @@
 package Model.Entity;
 
 import Model.Directions;
+import javafx.event.Event;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -12,6 +14,10 @@ public class Player extends DynamicEntity {
 
     private HashMap<KeyCode, Directions> movementKeys;
 
+    /**
+     * Default constructor for the Player.
+     * Initialise all numerical values to 0 and the movement keys on the UP, DOWN, LEFT and RIGHT keys
+     */
     public Player()
     {
         movementKeys = new HashMap<>();
@@ -44,10 +50,14 @@ public class Player extends DynamicEntity {
      * Function used to handle the player event.
      * @param event the keyEvent associated with the player
      */
-    public void handleEvent(KeyEvent event)
+    public void handleEvent(InputEvent event)
     {
-        Directions d = movementKeys.get(event.getCode());
-        if(d != null)
-            move(d);
+        if(event instanceof KeyEvent)
+        {
+            KeyEvent e = (KeyEvent) event;
+            Directions d = movementKeys.get(e.getCode());
+            if(d != null)
+                move(d);
+        }
     }
 }
