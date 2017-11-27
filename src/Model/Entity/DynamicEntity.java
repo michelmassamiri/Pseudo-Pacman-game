@@ -7,8 +7,8 @@ import java.util.Vector;
 
 public abstract class DynamicEntity implements Entity{
 
-    private Vector<Float> pos;
-    private ImageView imageView;
+    protected Vector<Float> pos;
+    protected ImageView imageView;
 
     public Float getPosX() { return pos.elementAt(0); }
     public Float getPosY() { return pos.elementAt(1); }
@@ -28,7 +28,20 @@ public abstract class DynamicEntity implements Entity{
      */
     public void move(Directions dir)
     {
-
+        switch (dir) {
+            case EAST:
+                setPosX(getPosX() + 1.0f);
+                break;
+            case WEST:
+                setPosX(getPosX() - 1.0f);
+                break;
+            case NORTH:
+                setPosX(getPosY() - 1.0f);
+                break;
+            case SOUTH:
+                setPosX(getPosY() + 1.0f);
+                break;
+        }
     }
 
 }

@@ -6,49 +6,19 @@ import javafx.scene.image.ImageView;
 
 public class StaticEntity implements Entity {
 
-	public Float getPosX() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	private Vector<Float> pos;
+	private ImageView imageView;
 
-	public Float getPosY() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Float getPosX() { return pos.elementAt(0); }
+	public Float getPosY() { return pos.elementAt(1); }
+	public Vector<Float> getPos() { return (Vector<Float>) pos.clone(); }
 
-	public Vector<Float> getPos() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public void setPosX(Float x) { pos.set(0, x); }
+	public void setPosY(Float y) { pos.set(0, y); }
+	public void setPosX(float x) { pos.set(0, x); }
+	public void setPosY(float y) { pos.set(0, y); }
+	public void setPos(Vector<Float> pos) { this.pos = (Vector<Float>) pos.clone(); }
 
-	public void setPosX(Float x) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setPosY(Float y) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setPosX(float x) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setPosY(float y) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setPos(Vector<Float> pos) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public ImageView getDrawable() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public ImageView getDrawable() { return imageView; }
 
 }
