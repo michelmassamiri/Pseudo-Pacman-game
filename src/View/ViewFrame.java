@@ -23,12 +23,12 @@ public class ViewFrame {
 	
 	public ViewFrame()
 	{
-		
+		pane = new Pane();
 	}
 	
 	public void start(Stage primaryStage){
 		primaryStage.setTitle("Pseudo PAC-MAN");
-		drawFrame(primaryStage, 10, 10);
+		drawFrame(primaryStage, 15, 15);
 		drawObject("player.png", 0, 0);
 		drawObject("bad.png", 0, 1);
 		drawObject("button_close.png", 0, 2);
@@ -38,6 +38,8 @@ public class ViewFrame {
 		drawObject("candy-3.png", 0, 6);
 		drawObject("candy-4.png", 0, 7);
 		drawObject("door_open.png", 0, 8);
+		drawWall(1,1,1,2,WALLCOLOR);
+		drawWall(2,2,1,2,WALLCOLOR);
 		primaryStage.show();
 	}
 	
@@ -49,7 +51,7 @@ public class ViewFrame {
 	 */
 	public static void drawFrame(Stage stage, int nbrX, int nbrY){
 		//TODO by jeniffer
-		pane = new Pane();
+		
 		Scene scene = new Scene(pane, 
 						((WALL + CELL) * nbrX + WALL)* SPAN, 
 						((WALL + CELL) * nbrY + WALL)* SPAN);
