@@ -15,9 +15,9 @@ public abstract class DynamicEntity implements Entity{
     public Vector<Float> getPos() { return (Vector<Float>) pos.clone(); }
 
     public void setPosX(Float x) { pos.set(0, x); }
-    public void setPosY(Float y) { pos.set(0, y); }
+    public void setPosY(Float y) { pos.set(1, y); }
     public void setPosX(float x) { pos.set(0, x); }
-    public void setPosY(float y) { pos.set(0, y); }
+    public void setPosY(float y) { pos.set(1, y); }
     public void setPos(Vector<Float> pos) { this.pos = (Vector<Float>) pos.clone(); }
 
     public ImageView getDrawable() { return imageView; }
@@ -36,10 +36,10 @@ public abstract class DynamicEntity implements Entity{
                 setPosX(getPosX() - 1.0f);
                 break;
             case NORTH:
-                setPosX(getPosY() - 1.0f);
+                setPosY(getPosY() - 1.0f);
                 break;
             case SOUTH:
-                setPosX(getPosY() + 1.0f);
+                setPosY(getPosY() + 1.0f);
                 break;
         }
     }

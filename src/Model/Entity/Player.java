@@ -15,8 +15,11 @@ public class Player extends DynamicEntity {
     public Player()
     {
         movementKeys = new HashMap<>();
-        pos = new Vector<>(2);
+        pos = new Vector<>();
         imageView = new ImageView();
+
+        pos.add(new Float(0.0f));
+        pos.add(new Float(0.0f));
 
         movementKeys.put(KeyCode.RIGHT,Directions.EAST);
         movementKeys.put(KeyCode.LEFT, Directions.WEST);
@@ -24,11 +27,23 @@ public class Player extends DynamicEntity {
         movementKeys.put(KeyCode.DOWN, Directions.SOUTH);
     }
 
-    public void setKey(KeyCode key, Directions dir)
-    {
-        movementKeys.put(key, dir);
-    }
+    /**
+     * Add or replace a key used to control the player
+     * @param key the key to press in order to control the player
+     * @param dir the direction in which the player should go when the key is pressed
+     */
+    public void setKey(KeyCode key, Directions dir) { movementKeys.put(key, dir); }
 
+    /**
+     * Remove a key from used to control the player
+     * @param key the key to remove from the table
+     */
+    public void removeKey(KeyCode key) { movementKeys.remove(key); }
+
+    /**
+     * Function used to handle the player event.
+     * @param event the keyEvent associated with the player
+     */
     public void handleEvent(KeyEvent event)
     {
         Directions d = movementKeys.get(event.getCode());
