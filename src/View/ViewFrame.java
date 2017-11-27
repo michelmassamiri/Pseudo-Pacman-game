@@ -19,13 +19,32 @@ public class ViewFrame {
 	static final int CELL = 9; //size of the cells (in units)
 	public static final Paint WALLCOLOR = Color.BURLYWOOD;
 	
+	private static ViewFrame instance = null;
 	private static Pane pane;
 	
-	public ViewFrame()
+	/**
+	 * Design Pattern Singleton of ViewFrame
+	 * @return Instance of view Frame
+	 */
+	public static ViewFrame getInstance(){
+		if(instance == null){
+			instance = new ViewFrame();
+		}
+		return instance;
+	}
+	
+	/**
+	 * Constructor of ViewFrame
+	 */
+	private ViewFrame()
 	{
 		pane = new Pane();
 	}
 	
+	/**
+	 * Launch game's display
+	 * @param primaryStage
+	 */
 	public void start(Stage primaryStage){
 		primaryStage.setTitle("Pseudo PAC-MAN");
 		drawFrame(primaryStage, 15, 15);

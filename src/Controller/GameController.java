@@ -21,7 +21,7 @@ public class GameController {
 		return instance;
 	}
 	/**
-	 * Constructeur du Controleur permettant la gestion des evennements dans le programme.
+	 * Constructor of Controller allowing the management of events in the program.
 	 * @param m Model du design pattern MVC
 	 * @param v Vue du design pattern MVC
 	 *//*
@@ -33,9 +33,13 @@ public class GameController {
 	
 	private GameController(){
 		model = new Model();
-		viewFrame = new ViewFrame();
+		viewFrame = ViewFrame.getInstance();
 	}
 	
+	/**
+	 * Launch game's display
+	 * @param primaryStage
+	 */
 	public void start(Stage primaryStage){
 		viewFrame.start(primaryStage);
 	}	
