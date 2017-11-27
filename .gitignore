@@ -2,3 +2,7 @@
 doc/
 */.DS_Store
 .DS_Store
+.classpath
+.project
+ppdmop.iml
+.idea/
