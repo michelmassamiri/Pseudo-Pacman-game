@@ -1,6 +1,6 @@
 package Model.Entity;
 
-import Model.Resources;
+import Model.Resources.Resources;
 import javafx.scene.image.ImageView;
 import java.util.Vector;
 

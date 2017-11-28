@@ -1,17 +1,24 @@
 package Model;
 
 import Model.Entity.Entity;
+import Model.Resources.ResourceManager;
+import Model.Resources.Resources;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Vector;
 
 public class Model {
 
 	private Vector<Entity> entities;
 	private int playerRank;
+	private ResourceManager resourceManager;
 
 	public Model()
 	{
-		playerRank = 0;
+		resourceManager = ResourceManager.getInstance();
+	    playerRank = 0;
 	}
 
 	/**
@@ -30,4 +37,26 @@ public class Model {
      * @param rank the rank in the entities table.
      */
     public void setPlayerRank(int rank) { playerRank = rank; }
+
+    /**
+     * Method that will load a bunch of resources at once.
+     * @param resources the resources to load stored as pairs : Resources - String (resource name - resource file)
+     */
+    public void loadResources(HashMap<Resources, String> resources)
+    {
+        Iterator i = resources.entrySet().iterator();
+        while(i.hasNext())
+        {
+            Map.Entry pair = (Map.Entry) i.next();
+            resourceManager.load((Resources) pair.getKey(), (String) pair.getValue());
+        }
+    }
+
+    /**
+     * Method used to unload every resources in the resource manager
+     */
+    public void unloadAll()
+    {
+        resourceManager.unloadAll();
+    }
 }

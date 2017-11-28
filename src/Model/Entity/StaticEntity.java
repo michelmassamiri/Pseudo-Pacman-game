@@ -2,8 +2,8 @@ package Model.Entity;
 
 import java.util.Vector;
 
-import Model.ResourceManager;
-import Model.Resources;
+import Model.Resources.ResourceManager;
+import Model.Resources.Resources;
 import javafx.scene.image.ImageView;
 
 public class StaticEntity implements Entity {

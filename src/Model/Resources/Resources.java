@@ -1,4 +1,6 @@
-package Model;
+package Model.Resources;
+
+import Model.Model;
 
 public enum Resources {
     BAD_GUY,

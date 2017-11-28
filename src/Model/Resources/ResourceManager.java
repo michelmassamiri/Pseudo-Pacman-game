@@ -1,7 +1,9 @@
-package Model;
+package Model.Resources;
 
 import javafx.scene.image.Image;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class ResourceManager {
 
@@ -42,6 +44,19 @@ public class ResourceManager {
     public void unload(Resources key)
     {
         imagesStored.remove(key);
+    }
+
+    /**
+     * Method that unload every image that is currently loaded in the manager
+     */
+    public void unloadAll()
+    {
+        Iterator i = imagesStored.entrySet().iterator();
+        while(i.hasNext())
+        {
+            Map.Entry pair = (Map.Entry) i.next();
+            unload((Resources) pair.getKey());
+        }
     }
 
     /**
