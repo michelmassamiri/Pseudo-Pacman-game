@@ -1,6 +1,9 @@
 package Model.Entity;
 
 import Model.Directions;
+import Model.ResourceManager;
+import Model.Resources;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.Vector;
@@ -21,6 +24,12 @@ public abstract class DynamicEntity implements Entity{
     public void setPos(Vector<Float> pos) { this.pos = (Vector<Float>) pos.clone(); }
 
     public ImageView getDrawable() { return imageView; }
+
+    public void setDrawable(Resources res)
+    {
+        ResourceManager rm = ResourceManager.getInstance();
+        imageView = new ImageView(rm.get(res));
+    }
 
     /**
      * method used to move a DynamicEntity in a specific direction.

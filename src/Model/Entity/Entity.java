@@ -1,7 +1,7 @@
 package Model.Entity;
 
+import Model.Resources;
 import javafx.scene.image.ImageView;
-
 import java.util.Vector;
 
 public interface Entity {
@@ -52,5 +52,11 @@ public interface Entity {
      * @return the drawable image, that can be used in a javafx.scene
      */
     ImageView getDrawable();
+
+    /**
+     * Setter of the sprite for the Entity. In order for it to work properly, the resource must be loaded.
+     * @param res the name of the Resource with which the ImageView will be made.
+     */
+    void setDrawable(Resources res);
 	
 }
