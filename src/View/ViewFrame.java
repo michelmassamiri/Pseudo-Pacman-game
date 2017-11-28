@@ -63,7 +63,7 @@ public class ViewFrame {
 	}
 	
 	/**
-	 * 
+	 * Playing environment without sprites nor diving wall. 
 	 * @param stage
 	 * @param nbrX
 	 * @param nbrY
@@ -75,9 +75,40 @@ public class ViewFrame {
 						((WALL + CELL) * nbrX + WALL)* SPAN, 
 						((WALL + CELL) * nbrY + WALL)* SPAN);
 		scene.setFill(Color.WHITE);
-			
-		stage.setScene(scene);
 		
+		Rectangle square;
+		stage.setScene(scene);
+		square = new Rectangle (0, 0,
+				SPAN * (nbrX * (CELL+WALL) + WALL), WALL *SPAN);
+		square.setFill(Color.CORAL);
+		pane.getChildren().add(square);
+		square = new Rectangle (0, SPAN * (nbrY	* (CELL+WALL)),
+				SPAN * ( nbrX * (CELL+WALL) + WALL), WALL * SPAN );
+		square.setFill(Color.CORAL);
+		pane.getChildren().add(square);
+		
+		square = new Rectangle (0, 0,
+				WALL * SPAN, SPAN * (nbrY * (CELL+WALL) + WALL));
+		square.setFill(Color.CORAL);
+		pane.getChildren().add(square);
+		
+		square = new Rectangle (SPAN * (nbrX * (CELL + WALL)), 0,
+				WALL * SPAN, SPAN * (nbrY * (CELL + WALL)+ WALL));
+		square.setFill(Color.CORAL);
+		pane.getChildren().add(square);
+		
+		for (int x=0 ; x < nbrX-1; ++x)
+		{
+			int offsetX = ((WALL + CELL) + (WALL + CELL) * x) * SPAN;
+			for (int y=0; y < nbrY-1; ++y)
+			{
+				int offsetY = ((WALL+CELL) + (WALL + CELL) * y) * SPAN;
+				square = new Rectangle (offsetX, offsetY,
+						WALL * SPAN, WALL *SPAN);
+				square.setFill(Color.CORAL);
+				pane.getChildren().add(square);
+			}
+		}
 	}
 	
 	
