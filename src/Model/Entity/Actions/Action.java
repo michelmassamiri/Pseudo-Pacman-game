@@ -18,4 +18,10 @@ public interface Action {
      * Launch the action when it's called.
      */
     void start();
+
+    /**
+     * Method that tells if the action as met the conditions to be started
+     * @return true if all conditions are met, false otherwise
+     */
+    boolean isStartable();
 }

@@ -13,12 +13,24 @@ import java.util.Vector;
 public class Player extends DynamicEntity {
 
     private HashMap<KeyCode, Directions> movementKeys;
+    private static Player INSTANCE = null;
+
+    /**
+     * Method that returns the instance of the Player singleton
+     * @return the instance of the player
+     */
+    public static Player getInstance()
+    {
+        if(INSTANCE == null)
+            INSTANCE = new Player();
+        return INSTANCE;
+    }
 
     /**
      * Default constructor for the Player.
      * Initialise all numerical values to 0 and the movement keys on the UP, DOWN, LEFT and RIGHT keys
      */
-    public Player()
+    private Player()
     {
         movementKeys = new HashMap<>();
         pos = new Vector<>();
