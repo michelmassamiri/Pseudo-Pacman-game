@@ -70,16 +70,21 @@ public class Model {
         entities.add(e);
     }
 
+    /**
+     * Method permitting to load every resources in the game at once. (Usuful, since the number of resources is low)
+     */
     public void loadAll()
     {
-        resourceManager.load(Resources.BAD_GUY, "bad.png");
-        resourceManager.load(Resources.BUTTON_CLOSED, "button_close.png");
-        resourceManager.load(Resources.BUTTON_OPPEN, "button_open.png");
-        resourceManager.load(Resources.CANDY_1, "candy-1.png");
-        resourceManager.load(Resources.CANDY_2, "candy-2.png");
-        resourceManager.load(Resources.CANDY_3, "candy-3.png");
-        resourceManager.load(Resources.CANDY_4, "candy-4.png");
-        resourceManager.load(Resources.DOOR_OPEN, "door_open.png");
-        resourceManager.load(Resources.PLAYER, "player.png");
+        HashMap<Resources, String> m = new HashMap<>();
+        m.put(Resources.BAD_GUY, "bad.png");
+        m.put(Resources.BUTTON_CLOSED, "button_close.png");
+        m.put(Resources.BUTTON_OPPEN, "button_open.png");
+        m.put(Resources.CANDY_1, "candy-1.png");
+        m.put(Resources.CANDY_2, "candy-2.png");
+        m.put(Resources.CANDY_3, "candy-3.png");
+        m.put(Resources.CANDY_4, "candy-4.png");
+        m.put(Resources.DOOR_OPEN, "door_open.png");
+        m.put(Resources.PLAYER, "player.png");
+        loadResources(m);
     }
 }
