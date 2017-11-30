@@ -20,6 +20,11 @@ public interface Action {
     void start();
 
     /**
+     * Method that set the actions to do.
+     */
+    void actions();
+
+    /**
      * Method that tells if the action as met the conditions to be started
      * @return true if all conditions are met, false otherwise
      */
