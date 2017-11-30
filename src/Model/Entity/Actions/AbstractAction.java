@@ -26,7 +26,7 @@ public abstract class AbstractAction implements Action{
             }
         }
     }
-    
+
     @Override
     public boolean isStartable() {
         return true;
