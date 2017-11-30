@@ -39,9 +39,30 @@ public class GameController {
 	private GameController(){
 		model = new Model();
 		viewFrame = ViewFrame.getInstance();
-		ResourceManager.getInstance().load(Resources.PLAYER, "player.png");
+	    model.loadAll();
 		Player player = Player.getInstance();
+		BadGuy bad1 = new BadGuy();
+		bad1.setPosX(1);
+		bad1.setPosY(2);
+		BadGuy bad2 = new BadGuy(3,6);
+		StaticEntity candy1 = new StaticEntity(Resources.CANDY_1, 2, 1);
+		StaticEntity candy2 = new StaticEntity(Resources.CANDY_2, 3, 4);
+		StaticEntity candy3 = new StaticEntity(Resources.CANDY_3, 5, 5);
+		StaticEntity candy4 = new StaticEntity(Resources.CANDY_4, 6, 5);
+		StaticEntity buttonOpen = new StaticEntity(Resources.BUTTON_OPEN, 7, 5);
+		StaticEntity buttonClose = new StaticEntity(Resources.BUTTON_CLOSED, 8, 5);
+		StaticEntity door = new StaticEntity(Resources.DOOR_OPEN, 9, 5);
 		model.addEntity(player);
+		model.addEntity(bad1);
+		model.addEntity(candy1);
+		model.addEntity(candy2);
+		model.addEntity(candy3);
+		model.addEntity(candy4);
+		model.addEntity(buttonOpen);
+		model.addEntity(buttonClose);
+		model.addEntity(door);
+		model.addEntity(bad2);
+		
 	}
 	
 	public Vector<Entity> getEntities(){

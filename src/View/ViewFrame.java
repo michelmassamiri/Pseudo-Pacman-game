@@ -52,18 +52,8 @@ public class ViewFrame {
 		Vector<Entity> entities = GameController.getInstance().getEntities();
 		int size = entities.size();
 		for (int i=0; i<size; ++i) {
-			drawObject(entities.elementAt(i).getDrawable(), 0, 0);
+			drawObject(entities.elementAt(i).getDrawable(), entities.elementAt(i).getPosX(), entities.elementAt(i).getPosY() );
 		}
-		/*drawObject("player.png", 0, 0);
-		drawObject("bad.png", 0, 1);
-		drawObject("button_close.png", 0, 2);
-		drawObject("button_open.png", 0, 3);
-		drawObject("candy-1.png", 0, 4);
-		drawObject("candy-2.png", 0, 5);
-		drawObject("candy-3.png", 0, 6);
-		drawObject("candy-4.png", 0, 7);
-		drawObject("door_open.png", 0, 8);*/
-		drawWall(1,1,1,2,WALLCOLOR);
 		drawWall(2,2,1,2,WALLCOLOR);
 		primaryStage.show();
 	}
@@ -152,7 +142,7 @@ public class ViewFrame {
 	 * Create the object in the frame with sprite in the nameJPG
 	 * @param nameJPG String name of file which content sprite.
 	 */
-	public void drawObject(ImageView sprite, int x, int y){
+	public void drawObject(ImageView sprite, Float x, Float y){
 		pane.getChildren().add(sprite);
 		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN) ;
 		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN) ;

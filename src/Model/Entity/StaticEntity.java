@@ -10,6 +10,22 @@ public class StaticEntity implements Entity {
 
 	private Vector<Float> pos;
 	private ImageView imageView;
+	
+	public StaticEntity(Resources resource) {
+		pos = new Vector<Float>();
+		imageView = new ImageView(ResourceManager.getInstance().get(resource));
+		
+		pos.add(new Float(0.0f));
+        pos.add(new Float(0.0f));
+	}
+	
+	public StaticEntity(Resources resource, float x, float y) {
+		pos = new Vector<Float>();
+		imageView = new ImageView(ResourceManager.getInstance().get(resource));
+		
+		pos.add(x);
+        pos.add(y);
+	}
 
 	public Float getPosX() { return pos.elementAt(0); }
 	public Float getPosY() { return pos.elementAt(1); }

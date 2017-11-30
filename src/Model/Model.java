@@ -78,7 +78,7 @@ public class Model {
         HashMap<Resources, String> m = new HashMap<>();
         m.put(Resources.BAD_GUY, "bad.png");
         m.put(Resources.BUTTON_CLOSED, "button_close.png");
-        m.put(Resources.BUTTON_OPPEN, "button_open.png");
+        m.put(Resources.BUTTON_OPEN, "button_open.png");
         m.put(Resources.CANDY_1, "candy-1.png");
         m.put(Resources.CANDY_2, "candy-2.png");
         m.put(Resources.CANDY_3, "candy-3.png");
