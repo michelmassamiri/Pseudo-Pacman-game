@@ -146,9 +146,7 @@ public class ViewFrame {
 	 * Create the object in the frame with sprite in the nameJPG
 	 * @param nameJPG String name of file which content sprite.
 	 */
-	private void drawObject(String nameJPG, int x, int y){
-		Image image = new Image( getClass().getResource(nameJPG).toExternalForm());
-		ImageView sprite= new ImageView(image);
+	public void drawObject(ImageView sprite, int x, int y){
 		pane.getChildren().add(sprite);
 		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN) ;
 		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN) ;

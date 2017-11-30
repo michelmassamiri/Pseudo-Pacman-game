@@ -59,4 +59,13 @@ public class Model {
     {
         resourceManager.unloadAll();
     }
+
+    /**
+     * add an entity in the entities tables.
+     * @param e the entity to add
+     */
+    public void addEntity(Entity e)
+    {
+        entities.add(e);
+    }
 }
