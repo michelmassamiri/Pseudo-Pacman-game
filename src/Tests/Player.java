@@ -2,11 +2,7 @@ package Tests;
 
 
 import Model.Directions;
-import javafx.event.ActionEvent;
-import javafx.event.EventType;
-import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import org.junit.*;
 
 

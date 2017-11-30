@@ -32,5 +32,6 @@ public class StaticEntity implements Entity {
 
 	public void setAction(Action a) { action = a; }
     public Action getAction() { return action; }
+    public void action() { action.start(); }
 
 }
