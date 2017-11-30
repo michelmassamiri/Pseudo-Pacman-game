@@ -4,6 +4,11 @@ import org.jgrapht.graph.DefaultEdge;
 
 public class Edge extends DefaultEdge implements Comparable<Edge> {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6138944944362553488L;
+
 	public enum Type {
 		OPENED_DOOR,
 		CLOSED_DOOR,
@@ -52,5 +57,5 @@ public class Edge extends DefaultEdge implements Comparable<Edge> {
 	public int compareTo(Edge o) {
 		return 1 ;
 	}
-	
+
 }
