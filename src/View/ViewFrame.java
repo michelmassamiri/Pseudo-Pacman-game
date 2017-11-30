@@ -1,9 +1,10 @@
 package View;
 
 import java.awt.Frame;
+import java.util.Vector;
 
 import Controller.GameController;
-
+import Model.Entity.Entity;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,7 +18,7 @@ public class ViewFrame {
 	static final int SPAN = 4; //Pixels for a unit
 	static final int WALL = 2; //thickness of the wall (in units)
 	static final int CELL = 9; //size of the cells (in units)
-	public static final Paint WALLCOLOR = Color.BURLYWOOD;
+	public static final Paint WALLCOLOR = Color.CORAL;
 	
 	private static ViewFrame instance = null;
 	private static Pane pane;
@@ -48,7 +49,12 @@ public class ViewFrame {
 	public void start(Stage primaryStage){
 		primaryStage.setTitle("Pseudo PAC-MAN");
 		drawFrame(primaryStage, 15, 15);
-		drawObject("player.png", 0, 0);
+		Vector<Entity> entities = GameController.getInstance().getEntities();
+		int size = entities.size();
+		for (int i=0; i<size; ++i) {
+			drawObject(entities.elementAt(i).getDrawable(), 0, 0);
+		}
+		/*drawObject("player.png", 0, 0);
 		drawObject("bad.png", 0, 1);
 		drawObject("button_close.png", 0, 2);
 		drawObject("button_open.png", 0, 3);
@@ -56,7 +62,7 @@ public class ViewFrame {
 		drawObject("candy-2.png", 0, 5);
 		drawObject("candy-3.png", 0, 6);
 		drawObject("candy-4.png", 0, 7);
-		drawObject("door_open.png", 0, 8);
+		drawObject("door_open.png", 0, 8);*/
 		drawWall(1,1,1,2,WALLCOLOR);
 		drawWall(2,2,1,2,WALLCOLOR);
 		primaryStage.show();
