@@ -39,10 +39,10 @@ public class Player extends DynamicEntity {
         pos.add(new Float(0.0f));
         pos.add(new Float(0.0f));
 
-        movementKeys.put(KeyCode.RIGHT,Directions.EAST);
-        movementKeys.put(KeyCode.LEFT, Directions.WEST);
-        movementKeys.put(KeyCode.UP, Directions.NORTH);
-        movementKeys.put(KeyCode.DOWN, Directions.SOUTH);
+        setKey(KeyCode.RIGHT,Directions.EAST);
+        setKey(KeyCode.LEFT, Directions.WEST);
+        setKey(KeyCode.UP, Directions.NORTH);
+        setKey(KeyCode.DOWN, Directions.SOUTH);
     }
 
     /**

@@ -5,6 +5,7 @@ import Model.Directions;
 import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.junit.*;
 
@@ -20,7 +21,7 @@ public class Player {
     @Before
     public void init()
     {
-        p = new Model.Entity.Player();
+        p = Model.Entity.Player.getInstance();
     }
 
     @Test
@@ -48,7 +49,7 @@ public class Player {
     public void eventHandlingTest()
     {
         try{
-            Robot robot = new Robot();
+            //Robot robot = new Robot();
             /*assertEquals(p.getPosX(), new Float(0.0f));
             assertEquals(p.getPosY(), new Float(0.0f));
             p.move(Directions.SOUTH);
@@ -64,5 +65,20 @@ public class Player {
         {
             assertEquals(true, false);
         }
+    }
+
+    @Test
+    public void playerKeySet()
+    {
+        assertEquals(p.getDirection(KeyCode.RIGHT), Directions.EAST);
+        assertEquals(p.getDirection(KeyCode.LEFT), Directions.WEST);
+        assertEquals(p.getDirection(KeyCode.UP), Directions.NORTH);
+        assertEquals(p.getDirection(KeyCode.DOWN), Directions.SOUTH);
+
+        p.setKey(KeyCode.A, Directions.EAST);
+        assertEquals(p.getDirection(KeyCode.A),Directions.EAST);
+
+        p.removeKey(KeyCode.UP);
+        assertEquals(p.getDirection(KeyCode.UP),null);
     }
 }
