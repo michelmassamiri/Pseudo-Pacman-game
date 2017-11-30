@@ -15,8 +15,7 @@ public class Labyrinth extends Application{
 	@Override
 	public void start(Stage stage) {
 		game.start(stage);
-		stage.show();
-		
+				
 	}
 	
 	@Override

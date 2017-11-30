@@ -64,9 +64,9 @@ public class ViewFrame {
 	
 	/**
 	 * Playing environment without sprites nor diving wall. 
-	 * @param stage
-	 * @param nbrX
-	 * @param nbrY
+	 * @param stage Frame
+	 * @param nbrX distance from one vertex to another in plane regarding X
+	 * @param nbrY "										"	regarding Y
 	 */
 	public static void drawFrame(Stage stage, int nbrX, int nbrY){
 		//TODO by jeniffer
