@@ -1,6 +1,6 @@
 package Model.Entity.Actions;
 
-public class AbstractAction implements Action{
+public abstract class AbstractAction implements Action{
 
     private boolean done = false;
     private boolean redone = false;
@@ -26,12 +26,7 @@ public class AbstractAction implements Action{
             }
         }
     }
-
-    @Override
-    public void actions() {
-
-    }
-
+    
     @Override
     public boolean isStartable() {
         return true;
