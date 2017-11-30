@@ -2,6 +2,8 @@ package Model.Entity;
 
 import java.util.Vector;
 
+import Model.Resources.ResourceManager;
+import Model.Resources.Resources;
 import javafx.scene.image.ImageView;
 
 public class StaticEntity implements Entity {
@@ -20,5 +22,10 @@ public class StaticEntity implements Entity {
 	public void setPos(Vector<Float> pos) { this.pos = (Vector<Float>) pos.clone(); }
 
 	public ImageView getDrawable() { return imageView; }
+	public void setDrawable(Resources res)
+	{
+		ResourceManager rm = ResourceManager.getInstance();
+		imageView = new ImageView(rm.get(res));
+	}
 
 }

@@ -34,7 +34,7 @@ public class Player extends DynamicEntity {
     }
 
     /**
-     * Add or replace a key used to control the player
+     * Register a new key or replace a key used to control the player
      * @param key the key to press in order to control the player
      * @param dir the direction in which the player should go when the key is pressed
      */
@@ -47,17 +47,9 @@ public class Player extends DynamicEntity {
     public void removeKey(KeyCode key) { movementKeys.remove(key); }
 
     /**
-     * Function used to handle the player event.
-     * @param event the keyEvent associated with the player
-     */
-    public void handleEvent(InputEvent event)
-    {
-        if(event instanceof KeyEvent)
-        {
-            KeyEvent e = (KeyEvent) event;
-            Directions d = movementKeys.get(e.getCode());
-            if(d != null)
-                move(d);
-        }
-    }
+     * Method that gives a direction to make the player move when a key is entered
+     * @param key the key that is pressed
+     * @return the direction if the key is registered, however returns null.
+     **/
+    public Directions getDirection(KeyCode key) { return movementKeys.get(key); }
 }
