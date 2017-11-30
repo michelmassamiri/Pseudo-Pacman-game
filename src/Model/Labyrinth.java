@@ -7,9 +7,8 @@ import org.jgrapht.* ;
 import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 
 public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
-	/**
-	 * 
-	 */
+
+
 	private static final long serialVersionUID = 789954947381591787L;
 	//private Vertex vertex ;
 	//private Edge edge ;
@@ -81,9 +80,8 @@ public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 	 * @return
 	 */
 	//TODO
-	@Override
 	public Edge getEdge(Vertex vertex, Directions dir) {
-		
+		return null;
 	}
 	
 	/**
