@@ -18,6 +18,7 @@ public class Model {
 	public Model()
 	{
 		resourceManager = ResourceManager.getInstance();
+		entities = new Vector<Entity>();
 	    playerRank = 0;
 	}
 

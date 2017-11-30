@@ -1,6 +1,11 @@
 package Controller;
 
-import Model.Model;
+import java.util.Vector;
+
+import Model.*;
+import Model.Entity.*;
+import Model.Resources.ResourceManager;
+import Model.Resources.Resources;
 import View.ViewFrame;
 
 import javafx.stage.Stage;
@@ -34,6 +39,13 @@ public class GameController {
 	private GameController(){
 		model = new Model();
 		viewFrame = ViewFrame.getInstance();
+		ResourceManager.getInstance().load(Resources.PLAYER, "player.png");
+		Player player = Player.getInstance();
+		model.addEntity(player);
+	}
+	
+	public Vector<Entity> getEntities(){
+		return model.getEntities();
 	}
 	
 	/**

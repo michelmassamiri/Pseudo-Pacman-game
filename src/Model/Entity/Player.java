@@ -1,6 +1,8 @@
 package Model.Entity;
 
 import Model.Directions;
+import Model.Resources.ResourceManager;
+import Model.Resources.Resources;
 import javafx.event.Event;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputEvent;
@@ -34,7 +36,7 @@ public class Player extends DynamicEntity {
     {
         movementKeys = new HashMap<>();
         pos = new Vector<>();
-        imageView = new ImageView();
+        imageView = new ImageView(ResourceManager.getInstance().get(Resources.PLAYER));
 
         pos.add(new Float(0.0f));
         pos.add(new Float(0.0f));
