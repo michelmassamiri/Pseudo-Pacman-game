@@ -2,6 +2,7 @@ package Model.Entity;
 
 import java.util.Vector;
 
+import Model.Entity.Actions.Action;
 import Model.Resources.ResourceManager;
 import Model.Resources.Resources;
 import javafx.scene.image.ImageView;
@@ -10,6 +11,7 @@ public class StaticEntity implements Entity {
 
 	private Vector<Float> pos;
 	private ImageView imageView;
+	private Action action;
 
 	public Float getPosX() { return pos.elementAt(0); }
 	public Float getPosY() { return pos.elementAt(1); }
@@ -27,5 +29,8 @@ public class StaticEntity implements Entity {
 		ResourceManager rm = ResourceManager.getInstance();
 		imageView = new ImageView(rm.get(res));
 	}
+
+	public void setAction(Action a) { action = a; }
+    public Action getAction() { return action; }
 
 }
