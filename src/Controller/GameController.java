@@ -14,10 +14,13 @@ public class GameController {
 	private static GameController instance = null;
 	private Model model;
 	private ViewFrame viewFrame;
-	
+
+
+	private int score;
+	private boolean gameOver; 
 	
 	/**
-	 * Design Pattern Singleton of Game Controller
+	 * Design Pattern Singleton of the Game Controller
 	 * @return Instance of game controller
 	 */
 	public static GameController getInstance(){
@@ -25,16 +28,6 @@ public class GameController {
 			instance = new GameController();
 		return instance;
 	}
-	/**
-	 * Constructor of Controller allowing the management of events in the program.
-	 * @param m Model du design pattern MVC
-	 * @param v Vue du design pattern MVC
-	 *//*
-	private GameController(Model m, View v)
-	{
-		model = m;
-		view = v;
-	}*/
 	
 	private GameController(){
 		model = new Model();
@@ -71,7 +64,7 @@ public class GameController {
 	
 	/**
 	 * Launch game's display
-	 * @param primaryStage
+	 * @param primaryStage the javafx's main stage
 	 */
 	public void start(Stage primaryStage){
 		viewFrame.start(primaryStage);

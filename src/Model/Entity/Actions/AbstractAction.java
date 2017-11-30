@@ -23,6 +23,7 @@ public abstract class AbstractAction implements Action{
             if(!isDone() || canBeRedone())
             {
                 actions();
+                done = true;
             }
         }
     }
