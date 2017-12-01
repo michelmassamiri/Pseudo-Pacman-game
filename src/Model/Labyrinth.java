@@ -223,6 +223,17 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 		Edge edge = instance.getEdge(vertex, dir) ;
 		return ((edge != null) && ((edge.getType() != Edge.Type.OPENED_DOOR))) ;
 	}
+
+    /**
+     * Method that tells if two vertices are connected on the graph
+     * @param v1 the first vertex
+     * @param v2 the second vertex
+     * @return true if there is an edge between the two vertices, false otherwise.
+     */
+	public boolean isConnected(Vertex v1, Vertex v2)
+    {
+        return getEdge(v1, v2) != null;
+    }
 	
 	/**
 	 * Opens a door randomly .

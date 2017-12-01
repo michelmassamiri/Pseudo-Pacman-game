@@ -1,14 +1,18 @@
 package Model.Entity;
 
 
+import java.util.Iterator;
+import java.util.Set;
 import java.util.Vector;
 
 import Model.Directions;
 import Model.Entity.Actions.BadGuyAction;
+import Model.Labyrinth;
 import Model.Vertex;
 import Model.Resources.ResourceManager;
 import Model.Resources.Resources;
 import javafx.scene.image.ImageView;
+import org.jgrapht.graph.SimpleGraph;
 
 public class BadGuy extends DynamicEntity {
 
@@ -36,25 +40,39 @@ public class BadGuy extends DynamicEntity {
         pos.add(y);
 	}
 
+    /**
+     * Look for the vertex on which is the BadGuy in the graph
+     * @param g the graph in which is the badGuy
+     * @return the vertex on which it is
+     */
+	private Vertex getVertex(Labyrinth g)
+    {
+        Vertex v = new Vertex((int)(getPosX().floatValue()), (int)(getPosY().floatValue()), 0);
+        for(Vertex tmp : g.vertexSet())
+            if(v.compareTo(tmp) == 0)
+                return tmp;
+
+        return null;
+    }
 
 
 
-    /*
+    /**
      * This is the algorithm used to make the non player characters move.
      * @param labyrinth the labyrinth in which the enemy is supposed to move.
      **/
-	/*
+
     public void Manhatan(Labyrinth labyrinth)
     {
-        Vertex vertex = this.getVertex(labyrinth.graph);
+        Vertex vertex = this.getVertex(labyrinth);
         for ( Directions dir : Directions.values() ) {
-            Vertex next =  labyrinth.graph.getVertexByDir(vertex, dir);
-            if(labyrinth.graph.isConnected(vertex, next) && ( next.getNbr()== vertex.getNbr() -1 ) )
+            Vertex next =  labyrinth.getVertexByDir(vertex, dir);
+            if(labyrinth.isConnected(vertex, next) && ( next.getNbr()== vertex.getNbr() -1 ) )
             {
                 move(dir);
             }
 
         }
-    }*/
+    }
 
 }
