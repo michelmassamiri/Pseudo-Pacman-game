@@ -2,8 +2,8 @@ package Model.Entity.Actions;
 
 public abstract class AbstractAction implements Action{
 
-    private boolean done = false;
-    private boolean redone = false;
+    protected boolean done = false;
+    protected boolean redone = false;
 
 
     @Override
