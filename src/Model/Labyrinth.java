@@ -144,7 +144,7 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
         while(it.hasNext())
         {
             Vertex current = (Vertex) it.next();
-            if(current.compareTo(v))
+            if(current.compareTo(v) == 0)
             {
                 ret = current;
                 break;

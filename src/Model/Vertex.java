@@ -105,8 +105,11 @@ public class Vertex {
 		return ret ;
 	}
 
-	public boolean compareTo(Vertex v)
+	public int compareTo(Vertex v)
 	{
-		return (v.getX() == getX() && v.getY()== getY());
+		int r = 1;
+		if(v.getX() == getX() && v.getY()== getY())
+			r = 0;
+		return r;
 	}
 }
