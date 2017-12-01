@@ -3,11 +3,9 @@ package Model.Entity;
 import Model.Directions;
 import Model.Resources.ResourceManager;
 import Model.Resources.Resources;
-import javafx.event.Event;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+
 
 import java.util.HashMap;
 import java.util.Vector;
@@ -57,7 +55,34 @@ public class Player extends DynamicEntity {
     /**
      * Remove a key from used to control the player
      * @param key the key to remove from the table
+     * 
+     */ 
+    /**
+     * 
+     * @param key: Read KeyBoard event in order to give the direction of player's movement, Handler Exception is missing 
+     * @return 
      */
+    public Directions setDirection (KeyCode key){
+    	Directions move = null;
+    	
+    	if (key == KeyCode.RIGHT)
+    		{
+    			move = Directions.EAST;
+    	    }
+    	else if (key == KeyCode.LEFT)
+    		{
+    			move = Directions.WEST;
+    	   	}
+    	else if (key == KeyCode.UP)
+    	   	{
+    	 		move = Directions.NORTH;
+    	   	}
+    	 else if (key == KeyCode.DOWN)
+    	   	{
+    	   		move = Directions.SOUTH;
+    	   	}
+		return move;
+    }
     public void removeKey(KeyCode key) { movementKeys.remove(key); }
 
     /**

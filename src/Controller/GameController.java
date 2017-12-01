@@ -1,5 +1,6 @@
 package Controller;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 import Model.*;
@@ -7,14 +8,17 @@ import Model.Entity.*;
 import Model.Resources.ResourceManager;
 import Model.Resources.Resources;
 import View.ViewFrame;
-
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class GameController {
 	private static GameController instance = null;
 	private Model model;
 	private ViewFrame viewFrame;
-
+	private Player player;
+	
 
 	private int score;
 	private boolean gameOver; 
@@ -33,7 +37,7 @@ public class GameController {
 		model = new Model();
 		viewFrame = ViewFrame.getInstance();
 	    model.loadAll();
-		Player player = Player.getInstance();
+		player = Player.getInstance();
 		BadGuy bad1 = new BadGuy();
 		bad1.setPosX(1);
 		bad1.setPosY(2);
@@ -62,12 +66,23 @@ public class GameController {
 		return model.getEntities();
 	}
 	
-	/**
+		/**
 	 * Launch game's display
 	 * @param primaryStage the javafx's main stage
 	 */
 	public void start(Stage primaryStage){
 		viewFrame.start(primaryStage);
+		primaryStage.show();
+
 	}	
+	public EventHandler<KeyEvent> eventHandlerkey = new EventHandler<KeyEvent>() {
+		@Override
+		public void handle (KeyEvent event) {
+			KeyCode keycode = event.getCode();
+			player.setDirection(keycode);
+			viewFrame.drawObject(GameController.getInstance().getEntities().elementAt(0).getDrawable(),player.getPosX(), player.getPosY());					
+		}	
+			
+	};
 	
 }
