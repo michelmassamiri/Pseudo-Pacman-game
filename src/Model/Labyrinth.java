@@ -132,6 +132,7 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	 */
 	//TODO
 	public Vertex getVertexByDir(Vertex vertex, Directions dir) {
+		
 		return null ;
 	}
 	
