@@ -74,7 +74,6 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	 * @param dir the direction in which the supposed vertex would be
 	 * @return true if there is no vertex yet, false otherwise
 	 */
-	//TODO
 	public boolean doesntExist(Vertex vertex, Directions dir) {
 	    Edge e = getEdge(vertex, dir);
 		return e == null;
@@ -86,7 +85,6 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	 * @param dir the direction in which the to vertex should be
 	 * @return An edge if there is one, null otherwise
 	 */
-	//TODO
 	public Edge getEdge(Vertex vertex, Directions dir) {
 	    Vertex v = getVertexByDir(vertex, dir);
 	    Edge e = getEdge(vertex, v);
