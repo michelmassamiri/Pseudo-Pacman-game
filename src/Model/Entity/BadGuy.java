@@ -1,8 +1,6 @@
 package Model.Entity;
 
 
-import java.util.Iterator;
-import java.util.Set;
 import java.util.Vector;
 
 import Model.Directions;
@@ -12,7 +10,6 @@ import Model.Vertex;
 import Model.Resources.ResourceManager;
 import Model.Resources.Resources;
 import javafx.scene.image.ImageView;
-import org.jgrapht.graph.SimpleGraph;
 
 public class BadGuy extends DynamicEntity {
 
