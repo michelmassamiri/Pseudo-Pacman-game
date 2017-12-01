@@ -62,6 +62,10 @@ public class GameController {
 		return model.getEntities();
 	}
 	
+	public Model getModel() {
+		return model;
+	}
+	
 	/**
 	 * Launch game's display
 	 * @param primaryStage the javafx's main stage

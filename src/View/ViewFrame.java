@@ -1,12 +1,10 @@
 package View;
 
-import java.awt.Frame;
-import java.util.Vector;
+import com.sun.javafx.scene.traversal.Direction;
 
 import Controller.GameController;
-import Model.Entity.Entity;
+import Model.Vertex;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -49,12 +47,11 @@ public class ViewFrame {
 	public void start(Stage primaryStage){
 		primaryStage.setTitle("Pseudo PAC-MAN");
 		drawFrame(primaryStage, 15, 15);
-		Vector<Entity> entities = GameController.getInstance().getEntities();
-		int size = entities.size();
+		int size = GameController.getInstance().getEntities().size();
 		for (int i=0; i<size; ++i) {
-			drawObject(entities.elementAt(i).getDrawable(), entities.elementAt(i).getPosX(), entities.elementAt(i).getPosY() );
+			drawObject(GameController.getInstance().getEntities().elementAt(i).getDrawable(), GameController.getInstance().getEntities().elementAt(i).getPosX(), GameController.getInstance().getEntities().elementAt(i).getPosY() );
 		}
-		drawWall(2,2,1,2,WALLCOLOR);
+		drawLabyrinth();
 		primaryStage.show();
 	}
 	
@@ -138,6 +135,7 @@ public class ViewFrame {
 		}
 	}
 	
+	
 	/**
 	 * Create the object in the frame with sprite in the nameJPG
 	 * @param nameJPG String name of file which content sprite.
@@ -149,6 +147,30 @@ public class ViewFrame {
 		
 		sprite.setX(xt);
 		sprite.setY(yt);
+	}
+	
+	public void update() {
+		int size = GameController.getInstance().getEntities().size();
+		for (int i=0; i<size; i++) {
+			GameController.getInstance().getEntities().elementAt(i).getDrawable();
+		}
+	}
+	
+	public void drawLabyrinth() {
+		GameController.getInstance().getModel().getLabyrinth();
+		for(int i =0; i<Vertex.EAST_BORDER; i++) {
+			for(int j=0; j<Vertex.SOUTH_BORDER; j++) {
+				if (isClosed(GameController.getInstance().getModel().getLabyrinth().getVertexByXY(i,j), Direction.UP))
+					drawWall(i, j, i-1, j, WALLCOLOR);
+				if (isClosed(GameController.getInstance().getModel().getLabyrinth().getVertexByXY(i,j), Direction.DOWN))
+					drawWall(i, j, i+1, j, WALLCOLOR);
+				if (isClosed(GameController.getInstance().getModel().getLabyrinth().getVertexByXY(i,j), Direction.LEFT))
+					drawWall(i, j, i, j-1, WALLCOLOR);
+				if (isClosed(GameController.getInstance().getModel().getLabyrinth().getVertexByXY(i,j), Direction.RIGHT))
+					drawWall(i, j, i, j+1, WALLCOLOR);
+				
+			}
+		}
 	}
 	
 }
