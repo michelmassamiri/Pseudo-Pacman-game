@@ -1,12 +1,12 @@
 package Model ;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Vector;
+import org.jgrapht.graph.SimpleGraph;
 
-import org.jgrapht.* ;
-import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
-
-public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
+public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 
 
 	private static final long serialVersionUID = 789954947381591787L;
@@ -167,5 +167,40 @@ public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 	public boolean isOpenedDoor(Vertex vertex, Directions dir) {
 		Edge edge = instance.getEdge(vertex, dir) ;
 		return ((edge != null) && ((edge.getType() != Edge.Type.OPENED_DOOR))) ;
+	}
+
+
+	//TODO
+	private Vertex getVertexByDir(Vertex v, Directions d)
+    {
+        return null;
+    }
+
+	private void calculateManhattanDistance(Vertex src, Vertex trg)
+	{
+		Queue<Vertex> fifo = new ArrayDeque<Vertex>();
+		trg.setNbr(1);
+		fifo.add(trg);
+		while(!fifo.isEmpty())
+        {
+            Vertex current = fifo.remove();
+            for(Directions dir : Directions.values())
+            {
+                if(isOpened(current, dir))
+                {
+                    Vertex next = getVertexByDir(current, dir);
+                    if(next != null)
+                    {
+                        if(next.getNbr() == 0)
+                        {
+                            next.setNbr(current.getNbr()+1);
+                            if(!next.equals(src))
+                                fifo.add(next);
+                        }
+                    }
+
+                }
+            }
+        }
 	}
 }
