@@ -104,4 +104,9 @@ public class Vertex {
 		
 		return ret ;
 	}
+
+	public boolean compareTo(Vertex v)
+	{
+		return (v.getX() == getX() && v.getY()== getY());
+	}
 }

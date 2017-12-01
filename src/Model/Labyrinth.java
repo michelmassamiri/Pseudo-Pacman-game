@@ -1,9 +1,7 @@
 package Model ;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
-import java.util.Random;
-import java.util.Vector;
+import java.util.*;
+
 import org.jgrapht.graph.SimpleGraph;
 import Model.Edge.Type;
 
@@ -130,10 +128,29 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	 * @param dir
 	 * @return
 	 */
-	//TODO
 	public Vertex getVertexByDir(Vertex vertex, Directions dir) {
-		
-		return null ;
+	    int x = vertex.getX(), y = vertex.getY();
+	    if(dir == Directions.NORTH)
+	        --y;
+	    else if(dir == Directions.SOUTH)
+	        ++y;
+	    else if(dir == Directions.EAST)
+	        ++x;
+	    else if(dir == Directions.WEST)
+	        --x;
+        Vertex v = new Vertex(x, y, 0), ret = null;
+        Set<Vertex> s =  vertexSet();
+        Iterator it = s.iterator();
+        while(it.hasNext())
+        {
+            Vertex current = (Vertex) it.next();
+            if(current.compareTo(v))
+            {
+                ret = current;
+                break;
+            }
+        }
+		return ret;
 	}
 	
 	/**
