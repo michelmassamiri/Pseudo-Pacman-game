@@ -1,17 +1,16 @@
 package Model ;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Vector;
-
-import org.jgrapht.* ;
-import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
-
+import org.jgrapht.graph.SimpleGraph;
 import Model.Edge.Type;
 
-public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
-	/**
-	 * 
-	 */
+
+public class Labyrinth extends SimpleGraph<Vertex, Edge> {
+
+
 	private static final long serialVersionUID = 789954947381591787L;
 	//private Vertex vertex ;
 	//private Edge edge ;
@@ -25,7 +24,11 @@ public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 	public static Labyrinth getInstance() {
 		return instance ;
 	}
-	
+
+    /**
+     * Method that builds a random graph (can be a non fully connected graph), representing the labyrinth
+     * @param vertex the vertex on which the graph will be built
+     */
 	public void buildRandomPath(Vertex vertex) {
 		Vector<Directions> v = new Vector<Directions>() ;
 		
@@ -66,10 +69,10 @@ public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 	}
 	
 	/**
-	 * 
-	 * @param vertex
-	 * @param dir
-	 * @return
+	 * Method that tells if the designated vertex is already created or not
+	 * @param vertex the vertex from which we look if another exists
+	 * @param dir the direction in which the supposed vertex would be
+	 * @return true if there is no vertex yet, false otherwise
 	 */
 	//TODO
 	public boolean doesntExist(Vertex vertex, Directions dir) {
@@ -77,19 +80,18 @@ public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 	}
 	
 	/**
-	 * 
-	 * @param vertex
-	 * @param dir
-	 * @return
+	 * Get the edge between two vertices, if they both exists
+	 * @param vertex the from vertex
+	 * @param dir the direction in which the to vertex should be
+	 * @return An edge if there is one, null otherwise
 	 */
 	//TODO
-	@Override
 	public Edge getEdge(Vertex vertex, Directions dir) {
-		
+		return null;
 	}
 	
 	/**
-	 * 
+	 * Method that gives a random edge from the graph
 	 * @return A Random Edge
 	 */
 	//TODO
@@ -122,12 +124,12 @@ public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 	 */
 	//TODO
 	public Vertex getVertexByDir(Vertex vertex, Directions dir) {
-		
+		return null ;
 	}
 	
 	/**
 	 * Labyrinth method to close the communication door between two vertexes .
-	 * @param edge : the edge that we want to close
+	 * @param edge the edge that we want to close
 	 */
 	public void closeDoor(Edge edge) {
 		edge.setType(Edge.Type.CLOSED_DOOR );
@@ -142,10 +144,10 @@ public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 	}
 	
 	/**
-	 * 
-	 * @param vertex
-	 * @param dir
-	 * @return
+	 * Method that tells if there is a wall from a specific vertex and a specific direction
+	 * @param vertex the vertex from which there might be a wall
+	 * @param dir the direction in which we want to check if there is a wall
+	 * @return true if there is a wall, false otherwise
 	 */
 	public boolean isWall(Vertex vertex, Directions dir) {
 		Edge edge = instance.getEdge(vertex, dir) ;
@@ -153,10 +155,10 @@ public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 	}
 	
 	/**
-	 * 
-	 * @param vertex
-	 * @param dir
-	 * @return
+	 *  Method that tells if there is a closed way from a specific vertex and a specific direction
+	 * @param vertex the vertex from which there might be a closed way
+	 * @param dir the direction in which we want to check if there is a closed way
+	 * @return true if there is a closed way, false otherwise
 	 */
 	public boolean isClosed(Vertex vertex, Directions dir) {
 		Edge edge = instance.getEdge(vertex, dir) ;
@@ -164,10 +166,10 @@ public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 	}
 	
 	/**
-	 * 
-	 * @param vertex
-	 * @param dir
-	 * @return
+	 * Method that tells if there is way way from a specific vertex and a specific direction
+     * @param vertex the vertex from which there might be a way
+     * @param dir the direction in which we want to check if there is a way
+     * @return true if there is a way, false otherwise
 	 */
 	public boolean isOpened(Vertex vertex, Directions dir) {
 		Edge edge = instance.getEdge(vertex, dir) ;
@@ -175,22 +177,22 @@ public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 	}
 	
 	/**
-	 * 
-	 * @param vertex
-	 * @param dir
-	 * @return
+     *  Method that tells if there is a closed door from a specific vertex and a specific direction
+     * @param vertex the vertex from which there might be a closed door
+     * @param dir the direction in which we want to check if there is a closed door
+     * @return true if there is a closed door, false otherwise
 	 */
 	public boolean isClosedDoor(Vertex vertex, Directions dir) {
 		Edge edge = instance.getEdge(vertex, dir) ;
 		return (edge != null && edge.getType() == Edge.Type.CLOSED_DOOR) ;
 	}
-	
-	/**
-	 * 
-	 * @param vertex
-	 * @param dir
-	 * @return
-	 */
+
+    /**
+     *  Method that tells if there is a open door from a specific vertex and a specific direction
+     * @param vertex the vertex from which there might be a open door
+     * @param dir the direction in which we want to check if there is a open door
+     * @return true if there is a open door, false otherwise
+     */
 	public boolean isOpenedDoor(Vertex vertex, Directions dir) {
 		Edge edge = instance.getEdge(vertex, dir) ;
 		return ((edge != null) && ((edge.getType() != Edge.Type.OPENED_DOOR))) ;
@@ -218,5 +220,51 @@ public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * 
+	 * @param src
+	 * @param trg
+	 */
+	private void calculateManhattanDistance(Vertex src, Vertex trg)
+	{
+		Queue<Vertex> fifo = new ArrayDeque<Vertex>();
+		trg.setNbr(1);
+		fifo.add(trg);
+		while(!fifo.isEmpty())
+        {
+            Vertex current = fifo.remove();
+            for(Directions dir : Directions.values())
+            {
+                if(isOpened(current, dir))
+                {
+                    Vertex next = getVertexByDir(current, dir);
+                    if(next != null)
+                    {
+                        if(next.getNbr() == 0)
+                        {
+                            next.setNbr(current.getNbr()+1);
+                            if(!next.equals(src))
+                                fifo.add(next);
+                        }
+                    }
+
+                }
+            }
+        }
+	}
+	
+	/**
+	 * 
+	 * @param src
+	 * @param trg
+	 */
+	public void launchManhattan(Vertex src, Vertex trg) {
+		for(Vertex vertex : instance.vertexSet()) {
+			vertex.setNbr(0);
+		}
+		
+		calculateManhattanDistance(src, trg);
 	}
 }
