@@ -9,9 +9,9 @@ public class BadGuyAction extends AbstractAction{
     private BadGuy b;
     private boolean lost;
 
-    public BadGuyAction(Player player, BadGuy badGuy)
+    public BadGuyAction(BadGuy badGuy)
     {
-        p = player;
+        p = Player.getInstance();
         lost = false;
         redone = true;
         b = badGuy;

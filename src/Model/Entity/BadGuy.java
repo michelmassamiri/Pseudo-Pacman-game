@@ -13,37 +13,29 @@ import javafx.scene.image.ImageView;
 public class BadGuy extends DynamicEntity {
 
     private BadGuyAction action;
-	
-	public BadGuy() {
-		pos = new Vector<>();
-        imageView = new ImageView(ResourceManager.getInstance().get(Resources.BAD_GUY));
 
-        pos.add(new Float(0.0f));
-        pos.add(new Float(0.0f));
+    /**
+     * Default constructors for the BadGuy
+     */
+	public BadGuy() {
+		this(0.f, 0.f);
 	}
-	
+
+    /**
+     * Constructor that assign a predefined position to the BadGuy.
+     * @param x the position on the x axis
+     * @param y the position on the y axis
+     */
 	public BadGuy(float x, float y) {
 		pos = new Vector<>();
         imageView = new ImageView(ResourceManager.getInstance().get(Resources.BAD_GUY));
 
+        action = new BadGuyAction(this);
+
         pos.add(x);
         pos.add(y);
 	}
 
-    public BadGuy(float x, float y, Player p) {
-        pos = new Vector<>();
-        imageView = new ImageView(ResourceManager.getInstance().get(Resources.BAD_GUY));
-
-        pos.add(x);
-        pos.add(y);
-
-        action = new BadGuyAction(p, this);
-    }
-
-    public void setAction(Player p)
-    {
-        action = new BadGuyAction(p, this);
-    }
 
 
 
