@@ -76,7 +76,8 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	 */
 	//TODO
 	public boolean doesntExist(Vertex vertex, Directions dir) {
-		return true ;
+	    Edge e = getEdge(vertex, dir);
+		return e == null;
 	}
 	
 	/**
@@ -87,7 +88,9 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	 */
 	//TODO
 	public Edge getEdge(Vertex vertex, Directions dir) {
-		return null;
+	    Vertex v = getVertexByDir(vertex, dir);
+	    Edge e = getEdge(vertex, v);
+		return e;
 	}
 	
 	/**
