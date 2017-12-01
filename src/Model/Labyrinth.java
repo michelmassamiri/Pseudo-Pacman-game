@@ -293,4 +293,13 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 		
 		calculateManhattanDistance(src, trg);
 	}
+	
+	public Vertex getVertexByXY(int x, int y) {
+		for(Vertex vertex : instance.vertexSet()) {
+			if(vertex.getX() == x && vertex.getY() == y)
+				return vertex ;
+		}
+		
+		return null ;
+	}
 }
