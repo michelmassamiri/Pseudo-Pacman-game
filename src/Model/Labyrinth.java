@@ -6,6 +6,8 @@ import java.util.Vector;
 import org.jgrapht.* ;
 import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 
+import Model.Edge.Type;
+
 public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 	/**
 	 * 
@@ -97,6 +99,33 @@ public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 	}
 	
 	/**
+	 * 
+	 * @return
+	 */
+	//TODO
+	public Vertex randomVertex() {
+		Random random = new Random() ;
+		int Low = Vertex.WEST_BORDER;
+		int High = Vertex.EAST_BORDER;
+		int x = random.nextInt(High-Low) + Low;
+		int y = random.nextInt(High-Low) + Low;
+		Vertex vertex = new Vertex(x, y, 0) ;
+		
+		return vertex ;
+	}
+	
+	/**
+	 * 
+	 * @param vertex
+	 * @param dir
+	 * @return
+	 */
+	//TODO
+	public Vertex getVertexByDir(Vertex vertex, Directions dir) {
+		
+	}
+	
+	/**
 	 * Labyrinth method to close the communication door between two vertexes .
 	 * @param edge : the edge that we want to close
 	 */
@@ -165,5 +194,29 @@ public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 	public boolean isOpenedDoor(Vertex vertex, Directions dir) {
 		Edge edge = instance.getEdge(vertex, dir) ;
 		return ((edge != null) && ((edge.getType() != Edge.Type.OPENED_DOOR))) ;
+	}
+	
+	/**
+	 * Opens a door randomly .
+	 */
+	public void openDoorRandom() {
+		Random random = new Random() ;
+		
+		for(int i = 1 ; i <= 1000 ; ++i) {
+			Vertex vertex = instance.randomVertex() ;
+			if(vertex != null) {
+				Directions dir = Directions.values()[random.nextInt(Directions.values().length)] ;
+				if(isWall(vertex, dir)) {
+					Vertex vertex2 = instance.getVertexByDir(vertex, dir) ;
+					if(vertex2 != null) {
+						Edge edge = instance.getEdge(vertex, vertex2) ;
+						if(edge == null) {
+							instance.addEdge(vertex, vertex2, new Edge(Type.OPENED_DOOR)) ;
+							return ;
+						}
+					}
+				}
+			}
+		}
 	}
 }
