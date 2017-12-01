@@ -97,8 +97,15 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	 */
 	//TODO
 	public Edge randomEdge() {
-		Edge edge = new Edge() ;
-		return edge ;
+        Random r = new Random();
+        Edge e = null;
+        while(e == null)
+        {
+            Vertex v = randomVertex();
+            Directions dir = Directions.values()[r.nextInt(4)];
+            e = getEdge(v, dir);
+        }
+		return e ;
 	}
 	
 	/**
