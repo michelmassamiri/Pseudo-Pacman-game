@@ -44,5 +44,13 @@ public class VertexTest {
         assertEquals(v.inBorders(Directions.EAST), false);
         assertEquals(v.inBorders(Directions.WEST), true);
         assertEquals(v.inBorders(Directions.SOUTH), false);
+        v.setX(1);
+        v.setY(1);
+        assertEquals(v.inBorders(Directions.NORTH), true);
+        assertEquals(v.inBorders(Directions.EAST), true);
+        v.setX(14);
+        v.setY(14);
+        assertEquals(v.inBorders(Directions.SOUTH), true);
+        assertEquals(v.inBorders(Directions.WEST), true);
     }
 }

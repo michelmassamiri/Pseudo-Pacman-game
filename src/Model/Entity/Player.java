@@ -3,16 +3,13 @@ package Model.Entity;
 import Model.Directions;
 import Model.Resources.ResourceManager;
 import Model.Resources.Resources;
-import javafx.event.Event;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 import java.util.HashMap;
 import java.util.Vector;
 
-public class Player extends DynamicEntity {
+public class Player extends DynamicEntity{
 
     private HashMap<KeyCode, Directions> movementKeys;
     private static Player INSTANCE = null;
