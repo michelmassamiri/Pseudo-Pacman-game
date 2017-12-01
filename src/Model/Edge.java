@@ -55,7 +55,12 @@ public class Edge extends DefaultEdge implements Comparable<Edge> {
 	@Override
 	//TODO
 	public int compareTo(Edge o) {
-		return 1 ;
+		int source = this.getSource().compareTo((o.getSource())) ;
+		if(source != 0)
+			return source ;
+		else {
+			return this.getTarget().compareTo((o.getTarget())) ;
+		}
 	}
 
 }

@@ -96,12 +96,20 @@ public class Vertex {
 		Boolean ret = false ;
 		
 		switch (dir) {
-		case NORTH : ret = y - 1 > NORTH_BORDER ; break ;
-		case SOUTH : ret = y + 1 < SOUTH_BORDER ; break ;
-		case WEST  : ret = x - 1 > WEST_BORDER ; break ;
-		case EAST  : ret = x + 1 < EAST_BORDER ; break ;
+		case NORTH : ret = y - 1 >= NORTH_BORDER ; break ;
+		case SOUTH : ret = y + 1 <= SOUTH_BORDER ; break ;
+		case WEST  : ret = x - 1 >= WEST_BORDER ; break ;
+		case EAST  : ret = x + 1 <= EAST_BORDER ; break ;
 		}
 		
 		return ret ;
+	}
+
+	public int compareTo(Vertex v)
+	{
+		int r = 1;
+		if(v.getX() == getX() && v.getY()== getY())
+			r = 0;
+		return r;
 	}
 }

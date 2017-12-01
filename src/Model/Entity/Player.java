@@ -5,12 +5,10 @@ import Model.Resources.ResourceManager;
 import Model.Resources.Resources;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-
-
 import java.util.HashMap;
 import java.util.Vector;
 
-public class Player extends DynamicEntity {
+public class Player extends DynamicEntity{
 
     private HashMap<KeyCode, Directions> movementKeys;
     private static Player INSTANCE = null;

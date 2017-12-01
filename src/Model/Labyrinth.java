@@ -1,12 +1,12 @@
 package Model ;
 
-import java.util.Random;
-import java.util.Vector;
+import java.util.*;
 
-import org.jgrapht.* ;
-import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
+import org.jgrapht.graph.SimpleGraph;
+import Model.Edge.Type;
 
-public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
+
+public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 
 
 	private static final long serialVersionUID = 789954947381591787L;
@@ -72,9 +72,9 @@ public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 	 * @param dir the direction in which the supposed vertex would be
 	 * @return true if there is no vertex yet, false otherwise
 	 */
-	//TODO
 	public boolean doesntExist(Vertex vertex, Directions dir) {
-		return true ;
+	    Edge e = getEdge(vertex, dir);
+		return e == null;
 	}
 	
 	/**
@@ -83,9 +83,10 @@ public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 	 * @param dir the direction in which the to vertex should be
 	 * @return An edge if there is one, null otherwise
 	 */
-	//TODO
 	public Edge getEdge(Vertex vertex, Directions dir) {
-		return null;
+	    Vertex v = getVertexByDir(vertex, dir);
+	    Edge e = getEdge(vertex, v);
+		return e;
 	}
 	
 	/**
@@ -94,8 +95,62 @@ public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 	 */
 	//TODO
 	public Edge randomEdge() {
-		Edge edge = new Edge() ;
-		return edge ;
+        Random r = new Random();
+        Edge e = null;
+        while(e == null)
+        {
+            Vertex v = randomVertex();
+            Directions dir = Directions.values()[r.nextInt(4)];
+            e = getEdge(v, dir);
+        }
+		return e ;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	//TODO
+	public Vertex randomVertex() {
+		Random random = new Random() ;
+		int Low = Vertex.WEST_BORDER;
+		int High = Vertex.EAST_BORDER;
+		int x = random.nextInt(High-Low) + Low;
+		int y = random.nextInt(High-Low) + Low;
+		Vertex vertex = new Vertex(x, y, 0) ;
+		
+		return vertex ;
+	}
+	
+	/**
+	 * 
+	 * @param vertex
+	 * @param dir
+	 * @return
+	 */
+	public Vertex getVertexByDir(Vertex vertex, Directions dir) {
+	    int x = vertex.getX(), y = vertex.getY();
+	    if(dir == Directions.NORTH)
+	        --y;
+	    else if(dir == Directions.SOUTH)
+	        ++y;
+	    else if(dir == Directions.EAST)
+	        ++x;
+	    else if(dir == Directions.WEST)
+	        --x;
+        Vertex v = new Vertex(x, y, 0), ret = null;
+        Set<Vertex> s =  vertexSet();
+        Iterator it = s.iterator();
+        while(it.hasNext())
+        {
+            Vertex current = (Vertex) it.next();
+            if(current.compareTo(v) == 0)
+            {
+                ret = current;
+                break;
+            }
+        }
+		return ret;
 	}
 	
 	/**
@@ -167,5 +222,84 @@ public class Labyrinth extends DirectedAcyclicGraph<Vertex, Edge> {
 	public boolean isOpenedDoor(Vertex vertex, Directions dir) {
 		Edge edge = instance.getEdge(vertex, dir) ;
 		return ((edge != null) && ((edge.getType() != Edge.Type.OPENED_DOOR))) ;
+	}
+	
+	/**
+	 * Opens a door randomly .
+	 */
+	public void openDoorRandom() {
+		Random random = new Random() ;
+		
+		for(int i = 1 ; i <= 1000 ; ++i) {
+			Vertex vertex = instance.randomVertex() ;
+			if(vertex != null) {
+				Directions dir = Directions.values()[random.nextInt(Directions.values().length)] ;
+				if(isWall(vertex, dir)) {
+					Vertex vertex2 = instance.getVertexByDir(vertex, dir) ;
+					if(vertex2 != null) {
+						Edge edge = instance.getEdge(vertex, vertex2) ;
+						if(edge == null) {
+							instance.addEdge(vertex, vertex2, new Edge(Type.OPENED_DOOR)) ;
+							return ;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param src
+	 * @param trg
+	 */
+	private void calculateManhattanDistance(Vertex src, Vertex trg)
+	{
+		Queue<Vertex> fifo = new ArrayDeque<Vertex>();
+		trg.setNbr(1);
+		fifo.add(trg);
+		while(!fifo.isEmpty())
+        {
+            Vertex current = fifo.remove();
+            for(Directions dir : Directions.values())
+            {
+                if(isOpened(current, dir))
+                {
+                    Vertex next = getVertexByDir(current, dir);
+                    if(next != null)
+                    {
+                        if(next.getNbr() == 0)
+                        {
+                            next.setNbr(current.getNbr()+1);
+                            if(!next.equals(src))
+                                fifo.add(next);
+                        }
+                    }
+
+                }
+            }
+        }
+	}
+	
+	/**
+	 * 
+	 * @param src
+	 * @param trg
+	 */
+	public void launchManhattan(Vertex src, Vertex trg) {
+		for(Vertex vertex : instance.vertexSet()) {
+			vertex.setNbr(0);
+		}
+		
+		calculateManhattanDistance(src, trg);
+	}
+	
+	public Vertex getVertexByXY(int x, int y) {
+		for(Vertex vertex : instance.vertexSet()) {
+			if(vertex.getX() == x && vertex.getY() == y)
+				return vertex ;
+		}
+		
+		return null ;
 	}
 }
