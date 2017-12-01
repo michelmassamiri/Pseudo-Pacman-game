@@ -1,13 +1,6 @@
 package View;
 
-<<<<<<< HEAD
 import Controller.GameController;
-=======
-import com.sun.javafx.scene.traversal.Direction;
-
-import Controller.GameController;
-import Model.Vertex;
->>>>>>> aa74c50fc389d29d7e3df08c4293528946d4cd3b
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -65,7 +58,7 @@ public class ViewFrame {
 		for (int i=0; i<size; ++i) {
 			drawObject(GameController.getInstance().getEntities().elementAt(i).getDrawable(), GameController.getInstance().getEntities().elementAt(i).getPosX(), GameController.getInstance().getEntities().elementAt(i).getPosY() );
 		}
-		drawLabyrinth();
+		GameController.getInstance().drawLabyrinth();
 		primaryStage.show();
 	}
 	
@@ -173,28 +166,13 @@ public class ViewFrame {
 	}
 	
 
-
+	/**
+	 * Draw every object in their new position
+	 */
 	public void update() {
 		int size = GameController.getInstance().getEntities().size();
 		for (int i=0; i<size; i++) {
-			GameController.getInstance().getEntities().elementAt(i).getDrawable();
-		}
-	}
-	
-	public void drawLabyrinth() {
-		GameController.getInstance().getModel().getLabyrinth();
-		for(int i =0; i<Vertex.EAST_BORDER; i++) {
-			for(int j=0; j<Vertex.SOUTH_BORDER; j++) {
-				if (isClosed(GameController.getInstance().getModel().getLabyrinth().getVertexByXY(i,j), Direction.UP))
-					drawWall(i, j, i-1, j, WALLCOLOR);
-				if (isClosed(GameController.getInstance().getModel().getLabyrinth().getVertexByXY(i,j), Direction.DOWN))
-					drawWall(i, j, i+1, j, WALLCOLOR);
-				if (isClosed(GameController.getInstance().getModel().getLabyrinth().getVertexByXY(i,j), Direction.LEFT))
-					drawWall(i, j, i, j-1, WALLCOLOR);
-				if (isClosed(GameController.getInstance().getModel().getLabyrinth().getVertexByXY(i,j), Direction.RIGHT))
-					drawWall(i, j, i, j+1, WALLCOLOR);
-				
-			}
+			drawObject(GameController.getInstance().getEntities().elementAt(i).getDrawable(), GameController.getInstance().getEntities().elementAt(i).getPosX(), GameController.getInstance().getEntities().elementAt(i).getPosY());
 		}
 	}
 	

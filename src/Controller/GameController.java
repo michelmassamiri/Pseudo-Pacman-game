@@ -1,13 +1,13 @@
 package Controller;
 
-import java.util.HashMap;
 import java.util.Vector;
 
 import Model.*;
 import Model.Entity.*;
-import Model.Resources.ResourceManager;
 import Model.Resources.Resources;
+
 import View.ViewFrame;
+
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -87,5 +87,25 @@ public class GameController {
 		}	
 			
 	};
+	
+	/**
+	 * Take the graph and paint it in the view
+	 */
+	public void drawLabyrinth() {
+		Labyrinth labyrinth = model.getLabyrinth();
+		for(int i =0; i<Vertex.EAST_BORDER; i++) {
+			for(int j=0; j<Vertex.SOUTH_BORDER; j++) {
+				if (labyrinth.isClosed(labyrinth.getVertexByXY(i,j), Directions.NORTH))
+					ViewFrame.drawWall(i, j, i-1, j, ViewFrame.WALLCOLOR);
+				if (labyrinth.isClosed(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
+					ViewFrame.drawWall(i, j, i+1, j, ViewFrame.WALLCOLOR);
+				if (labyrinth.isClosed(labyrinth.getVertexByXY(i,j), Directions.WEST))
+					ViewFrame.drawWall(i, j, i, j-1, ViewFrame.WALLCOLOR);
+				if (labyrinth.isClosed(labyrinth.getVertexByXY(i,j), Directions.EAST))
+					ViewFrame.drawWall(i, j, i, j+1, ViewFrame.WALLCOLOR);
+				
+			}
+		}
+	}
 	
 }
