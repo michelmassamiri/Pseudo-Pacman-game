@@ -1,5 +1,6 @@
 package Tests;
 
+import Model.Directions;
 import Model.Edge;
 import Model.Labyrinth;
 import Model.Vertex;
@@ -30,6 +31,11 @@ public class EdgeTest {
         Vertex v = new Vertex(0, 0, 0);
         assertEquals(l.isConnected(v1, v), false);
         assertEquals(l.isConnected(v, v2), false);
+
+        assertEquals(l.doesntExist(v1, Directions.EAST), false);
+        assertEquals(l.doesntExist(v1, Directions.NORTH), true);
     }
+
+
 
 }

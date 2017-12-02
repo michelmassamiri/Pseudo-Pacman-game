@@ -25,7 +25,8 @@ public class Model {
 	    Random r = new Random();
 	    Vertex vertex =new Vertex(r.nextInt()%Vertex.EAST_BORDER,r.nextInt()%Vertex.SOUTH_BORDER, 0);
 	    labyrinth = Labyrinth.getInstance();
-	    labyrinth.buildRandomPath(vertex);
+	    labyrinth.addVertex(vertex);
+	    //labyrinth.buildRandomPath(vertex);
 	}
 
 	/**
