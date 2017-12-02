@@ -12,9 +12,9 @@ import javafx.stage.Stage;
 
 
 public class ViewFrame {
-	static final int SPAN = 4; //Pixels for a unit
-	static final int WALL = 2; //thickness of the wall (in units)
-	static final int CELL = 9; //size of the cells (in units)
+	private static final int SPAN = 4; //Pixels for a unit
+	private static final int WALL = 2; //thickness of the wall (in units)
+	private static final int CELL = 9; //size of the cells (in units)
 	public static final Paint WALLCOLOR = Color.CORAL;
 		
 	private static ViewFrame instance = null;
@@ -46,7 +46,7 @@ public class ViewFrame {
 	
 	/**
 	 * Launch game's display
-	 * @param primaryStage
+	 * @param primaryStage the main stage of the game
 	 */
 	public void start(Stage primaryStage){
 		primaryStage.setTitle("Pseudo PAC-MAN");
@@ -141,11 +141,13 @@ public class ViewFrame {
 			pane.getChildren().add(square);
 		}
 	}
-	
-	
+
+
 	/**
-	 * Create the object in the frame with sprite in the nameJPG
-	 * @param nameJPG String name of file which content sprite.
+	 * method that draws a sprite on the screen, at specified position.
+	 * @param sprite the sprite to draw on the screen
+	 * @param x the position of the sprite on the screen, regarding the x axis
+	 * @param y the position of the sprite on the screen, regarding the y axis
 	 */
 	public void drawObject(ImageView sprite, Float x, Float y){
 		pane.getChildren().add(sprite);
