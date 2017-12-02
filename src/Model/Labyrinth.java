@@ -10,15 +10,21 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 
 
 	private static final long serialVersionUID = 789954947381591787L;
-	//private Vertex vertex ;
-	//private Edge edge ;
 	
+	/* Singelton's Design Pattern instance */
 	private static Labyrinth instance = new Labyrinth();
 	 
+	/**
+	 * The labyrinth private constructor. Nothing changed, the upon class will instantiate.
+	 */
 	private Labyrinth() {
 		super(Edge.class) ; //super(Class<Edge extends E> Edge.class)
 	}
 	
+	/**
+	 * The public Singleton method to get the instance .
+	 * @return the labyrinth's instance .
+	 */
 	public static Labyrinth getInstance() {
 		return instance ;
 	}
@@ -93,7 +99,6 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	 * Method that gives a random edge from the graph
 	 * @return A Random Edge
 	 */
-	//TODO
 	public Edge randomEdge() {
         Random r = new Random();
         Edge e = null;
@@ -107,10 +112,9 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Generate a random vertex. The position of the vertex does not cross the borders limit. 
+	 * @return The generated vertex .
 	 */
-	//TODO
 	public Vertex randomVertex() {
 		Random random = new Random() ;
 		int Low = Vertex.WEST_BORDER;
@@ -123,10 +127,32 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	}
 	
 	/**
-	 * 
-	 * @param vertex
-	 * @param dir
-	 * @return
+	 * Generate a random vertex that does exist in the graph by a random direction.
+	 * @return the generated vertex .
+	 */
+	public Vertex randomVertexByDir() {
+		 Random r = new Random();
+		 Vertex v = null;
+		 
+		 int Low = Vertex.WEST_BORDER;
+		 int High = Vertex.EAST_BORDER;
+		 int x = r.nextInt(High-Low) + Low;
+		 int y = r.nextInt(High-Low) + Low;
+		 Vertex vertex = new Vertex(x, y, 0) ;
+
+		 while(v == null)
+		 {
+			 Directions dir = Directions.values()[r.nextInt(4)];
+			 v = getVertexByDir(vertex, dir) ;
+		 }
+		 return v ;
+	}
+	
+	/**
+	 * Get the vertex to which we want to reach, given the source vertex and the direction to the target .
+	 * @param vertex : the source vertex .
+	 * @param dir : the direction to which we want to get .
+	 * @return the target vertex .
 	 */
 	public Vertex getVertexByDir(Vertex vertex, Directions dir) {
 	    int x = vertex.getX(), y = vertex.getY();
@@ -140,7 +166,7 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	        --x;
         Vertex v = new Vertex(x, y, 0), ret = null;
         Set<Vertex> s =  vertexSet();
-        Iterator it = s.iterator();
+        Iterator<Vertex> it = s.iterator();
         while(it.hasNext())
         {
             Vertex current = (Vertex) it.next();
@@ -260,9 +286,9 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	}
 	
 	/**
-	 * 
-	 * @param src
-	 * @param trg
+	 * The Manhattan's algorithm to calculate the distance between the source vertex and the target vertex .
+	 * @param src : The source vertex .
+	 * @param trg : The target vertex .
 	 */
 	private void calculateManhattanDistance(Vertex src, Vertex trg)
 	{
@@ -293,9 +319,9 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	}
 	
 	/**
-	 * 
-	 * @param src
-	 * @param trg
+	 * The public Manhattan's method. It initializes the vertexes distance to 0 and then call the Manhattan's algorithm .
+	 * @param src : The source vertex .
+	 * @param trg : The target vertex .
 	 */
 	public void launchManhattan(Vertex src, Vertex trg) {
 		for(Vertex vertex : instance.vertexSet()) {
@@ -305,6 +331,12 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 		calculateManhattanDistance(src, trg);
 	}
 	
+	/**
+	 * Get a vertex in the graph, given its position .
+	 * @param x : The x coordinates of the vertex .
+	 * @param y : The y coordinates of the vertex .
+	 * @return A vertex in the position(x,y), null in the case of no such vertex .
+	 */
 	public Vertex getVertexByXY(int x, int y) {
 		for(Vertex vertex : instance.vertexSet()) {
 			if(vertex.getX() == x && vertex.getY() == y)

@@ -1,27 +1,28 @@
 package View;
 
-import java.awt.Frame;
-import java.util.Vector;
-
 import Controller.GameController;
-import Model.Entity.Entity;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 
 public class ViewFrame {
 	static final int SPAN = 4; //Pixels for a unit
 	static final int WALL = 2; //thickness of the wall (in units)
 	static final int CELL = 9; //size of the cells (in units)
 	public static final Paint WALLCOLOR = Color.CORAL;
-	
+		
 	private static ViewFrame instance = null;
 	private static Pane pane;
+	private static Scene scene;
+	
+	
+	public Text keyboardDirection = new Text();
 	
 	/**
 	 * Design Pattern Singleton of ViewFrame
@@ -40,6 +41,7 @@ public class ViewFrame {
 	private ViewFrame()
 	{
 		pane = new Pane();
+		
 	}
 	
 	/**
@@ -49,25 +51,26 @@ public class ViewFrame {
 	public void start(Stage primaryStage){
 		primaryStage.setTitle("Pseudo PAC-MAN");
 		drawFrame(primaryStage, 15, 15);
-		Vector<Entity> entities = GameController.getInstance().getEntities();
-		int size = entities.size();
+
+		GameController.getInstance().getEntities();
+
+		int size = GameController.getInstance().getEntities().size();
 		for (int i=0; i<size; ++i) {
-			drawObject(entities.elementAt(i).getDrawable(), entities.elementAt(i).getPosX(), entities.elementAt(i).getPosY() );
+			drawObject(GameController.getInstance().getEntities().elementAt(i).getDrawable(), GameController.getInstance().getEntities().elementAt(i).getPosX(), GameController.getInstance().getEntities().elementAt(i).getPosY() );
 		}
-		drawWall(2,2,1,2,WALLCOLOR);
+		GameController.getInstance().drawLabyrinth();
 		primaryStage.show();
 	}
 	
 	/**
-	 * Playing environment without sprites nor diving wall. 
+	 * Playing environment without spirits nor diving wall. 
 	 * @param stage Frame
 	 * @param nbrX distance from one vertex to another in plane regarding X
 	 * @param nbrY "										"	regarding Y
 	 */
 	public static void drawFrame(Stage stage, int nbrX, int nbrY){
-		//TODO by jeniffer
-		
-		Scene scene = new Scene(pane, 
+				
+		scene = new Scene(pane, 
 						((WALL + CELL) * nbrX + WALL)* SPAN, 
 						((WALL + CELL) * nbrY + WALL)* SPAN);
 		scene.setFill(Color.WHITE);
@@ -76,21 +79,21 @@ public class ViewFrame {
 		stage.setScene(scene);
 		square = new Rectangle (0, 0,
 				SPAN * (nbrX * (CELL+WALL) + WALL), WALL *SPAN);
-		square.setFill(Color.CORAL);
+		square.setFill(WALLCOLOR);
 		pane.getChildren().add(square);
 		square = new Rectangle (0, SPAN * (nbrY	* (CELL+WALL)),
 				SPAN * ( nbrX * (CELL+WALL) + WALL), WALL * SPAN );
-		square.setFill(Color.CORAL);
+		square.setFill(WALLCOLOR);
 		pane.getChildren().add(square);
 		
 		square = new Rectangle (0, 0,
 				WALL * SPAN, SPAN * (nbrY * (CELL+WALL) + WALL));
-		square.setFill(Color.CORAL);
+		square.setFill(WALLCOLOR);
 		pane.getChildren().add(square);
 		
 		square = new Rectangle (SPAN * (nbrX * (CELL + WALL)), 0,
 				WALL * SPAN, SPAN * (nbrY * (CELL + WALL)+ WALL));
-		square.setFill(Color.CORAL);
+		square.setFill(WALLCOLOR);
 		pane.getChildren().add(square);
 		
 		for (int x=0 ; x < nbrX-1; ++x)
@@ -101,10 +104,11 @@ public class ViewFrame {
 				int offsetY = ((WALL+CELL) + (WALL + CELL) * y) * SPAN;
 				square = new Rectangle (offsetX, offsetY,
 						WALL * SPAN, WALL *SPAN);
-				square.setFill(Color.CORAL);
+				square.setFill(WALLCOLOR);
 				pane.getChildren().add(square);
 			}
 		}
+				
 	}
 	
 	
@@ -138,6 +142,7 @@ public class ViewFrame {
 		}
 	}
 	
+	
 	/**
 	 * Create the object in the frame with sprite in the nameJPG
 	 * @param nameJPG String name of file which content sprite.
@@ -149,6 +154,26 @@ public class ViewFrame {
 		
 		sprite.setX(xt);
 		sprite.setY(yt);
+	}
+	
+
+	/*
+	 * We use SetOnKeyPressed instead of setOnAction for the event that makes move player
+	 */
+	public void setOnKeyPressed () {
+		
+		scene.setOnKeyPressed(GameController.getInstance().eventHandlerkey);
+	}
+	
+
+	/**
+	 * Draw every object in their new position
+	 */
+	public void update() {
+		int size = GameController.getInstance().getEntities().size();
+		for (int i=0; i<size; i++) {
+			drawObject(GameController.getInstance().getEntities().elementAt(i).getDrawable(), GameController.getInstance().getEntities().elementAt(i).getPosX(), GameController.getInstance().getEntities().elementAt(i).getPosY());
+		}
 	}
 	
 }

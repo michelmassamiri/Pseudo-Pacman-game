@@ -7,6 +7,7 @@ import Model.Resources.Resources;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 import java.util.Vector;
 
 public class Model {
@@ -14,12 +15,17 @@ public class Model {
 	private Vector<Entity> entities;
 	private int playerRank;
 	private ResourceManager resourceManager;
+	private Labyrinth labyrinth;
 
 	public Model()
 	{
 		resourceManager = ResourceManager.getInstance();
 		entities = new Vector<Entity>();
 	    playerRank = 0;
+	    Random r = new Random(Vertex.EAST_BORDER);
+	    Vertex vertex =new Vertex(r.nextInt(),r.nextInt(), 0);
+	    labyrinth = Labyrinth.getInstance();
+	    labyrinth.buildRandomPath(vertex);
 	}
 
 	/**
@@ -86,5 +92,9 @@ public class Model {
         m.put(Resources.DOOR_OPEN, "door_open.png");
         m.put(Resources.PLAYER, "player.png");
         loadResources(m);
+    }
+    
+    public Labyrinth getLabyrinth() {
+    	return labyrinth;
     }
 }
