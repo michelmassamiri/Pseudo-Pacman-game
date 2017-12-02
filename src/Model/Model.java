@@ -28,7 +28,6 @@ public class Model {
 	    labyrinth = Labyrinth.getInstance();
 	    labyrinth.addVertex(vertex);
 	    labyrinth.buildRandomPath(vertex);
-	    System.out.println(labyrinth.edgeSet().size());
 	}
 
 	/**
