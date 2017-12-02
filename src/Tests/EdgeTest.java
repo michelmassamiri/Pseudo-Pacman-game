@@ -28,6 +28,7 @@ public class EdgeTest {
     public void connectionTest()
     {
         assertEquals(l.isConnected(v1, v2), true);
+        assertEquals(l.isConnected(v2, v1), true);
         Vertex v = new Vertex(0, 0, 0);
         assertEquals(l.isConnected(v1, v), false);
         assertEquals(l.isConnected(v, v2), false);

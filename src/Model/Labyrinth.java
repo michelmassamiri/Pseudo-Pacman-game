@@ -90,8 +90,9 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	 */
 	public Edge getEdge(Vertex vertex, Directions dir) {
 	    Vertex v = getVertexByDir(vertex, dir);
-	    Edge e = getEdge(vertex, v);
-		return e;
+	    if(v == null)
+	        return null;
+	    return getEdge(v, vertex);
 	}
 	
 	/**
@@ -164,18 +165,12 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	    else if(dir == Directions.WEST)
 	        --x;
         Vertex v = new Vertex(x, y, 0), ret = null;
-        Set<Vertex> s =  vertexSet();
-        Iterator<Vertex> it = s.iterator();
-        while(it.hasNext())
+        for(Vertex current : vertexSet())
         {
-            Vertex current = (Vertex) it.next();
             if(current.compareTo(v) == 0)
-            {
-                ret = current;
-                break;
-            }
+                return current;
         }
-		return ret;
+        return null;
 	}
 	
 	/**
@@ -339,11 +334,11 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	 * @return A vertex in the position(x,y), null in the case of no such vertex .
 	 */
 	public Vertex getVertexByXY(int x, int y) {
+	    Vertex v = new Vertex(x, y, 0);
 		for(Vertex vertex : instance.vertexSet()) {
-			if(vertex.getX() == x && vertex.getY() == y)
-				return vertex ;
+			if(v.compareTo(vertex) == 0)
+			    return vertex;
 		}
-		
 		return null ;
 	}
 }
