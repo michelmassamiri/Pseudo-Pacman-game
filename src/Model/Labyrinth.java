@@ -10,6 +10,7 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 
 
 	private static final long serialVersionUID = 789954947381591787L;
+	private int attempt = 0;
 	
 	/* Singelton's Design Pattern instance */
 	private static Labyrinth instance = new Labyrinth();
@@ -46,13 +47,13 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 		for(int i = 0 ; i < directions.length; ++i) {
 			index = random.nextInt(v.size()) ;
 			directions[i] = v.get(index) ;
-			v.remove(index) ;
+			v.remove(index);
 		}
 		
 		/* For each direction, we will advance in profound to build the graph */
 		for(int i = 0 ; i < 4 ; ++i) {
 			Directions dir = directions[i] ;
-			int x, y, xt, yt ;
+			int x, y, xt = 0, yt = 0;
 			if(vertex.inBorders(dir) && instance.doesntExist(vertex, dir)) {
 				x = vertex.getX() ;
 				y = vertex.getY() ;
@@ -61,9 +62,8 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 				case SOUTH: xt = x; yt = y+1 ; break ;
 				case EAST: xt = x+1; yt = y; break ;
 				case WEST: xt = x-1; yt = y; break ;
-				default: xt = 0; yt = 0; break ;
 				}
-				
+
 				Vertex next = new Vertex(xt, yt, vertex.getNbr()+1) ;
 				instance.addVertex(next) ;
 				instance.addEdge(vertex, next) ;
@@ -79,8 +79,7 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	 * @return true if there is no vertex yet, false otherwise
 	 */
 	public boolean doesntExist(Vertex vertex, Directions dir) {
-	    Edge e = getEdge(vertex, dir);
-		return e == null;
+		return getEdge(vertex, dir) == null && getVertexByDir(vertex, dir) == null;
 	}
 	
 	/**

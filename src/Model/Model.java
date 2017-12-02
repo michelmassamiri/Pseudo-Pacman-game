@@ -24,9 +24,11 @@ public class Model {
 	    playerRank = 0;
 	    Random r = new Random();
 	    Vertex vertex =new Vertex(r.nextInt()%Vertex.EAST_BORDER,r.nextInt()%Vertex.SOUTH_BORDER, 0);
+        vertex = new Vertex(0, 0, 0);
 	    labyrinth = Labyrinth.getInstance();
 	    labyrinth.addVertex(vertex);
-	    //labyrinth.buildRandomPath(vertex);
+	    labyrinth.buildRandomPath(vertex);
+	    System.out.println(labyrinth.edgeSet().size());
 	}
 
 	/**
