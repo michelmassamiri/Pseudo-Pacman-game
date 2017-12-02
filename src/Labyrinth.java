@@ -13,7 +13,13 @@ public class Labyrinth extends Application{
 	
 	@Override
 	public void start(Stage stage) {
-		game.start(stage);
+		try {
+			game.start(stage);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 				
 	}
 	

@@ -22,8 +22,8 @@ public class Model {
 		resourceManager = ResourceManager.getInstance();
 		entities = new Vector<Entity>();
 	    playerRank = 0;
-	    Random r = new Random(Vertex.EAST_BORDER);
-	    Vertex vertex =new Vertex(r.nextInt(),r.nextInt(), 0);
+	    Random r = new Random();
+	    Vertex vertex =new Vertex(r.nextInt()%Vertex.EAST_BORDER,r.nextInt()%Vertex.SOUTH_BORDER, 0);
 	    labyrinth = Labyrinth.getInstance();
 	    labyrinth.buildRandomPath(vertex);
 	}

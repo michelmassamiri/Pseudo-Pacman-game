@@ -213,7 +213,9 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	 * @return true if there is a closed way, false otherwise
 	 */
 	public boolean isClosed(Vertex vertex, Directions dir) {
-		Edge edge = instance.getEdge(vertex, dir) ;
+	    Edge edge = null;
+	    if(vertex != null)
+		    edge = instance.getEdge(vertex, dir) ;
 		return (edge == null) || (edge.getType() == Edge.Type.CLOSED_DOOR) ;
 	}
 	
