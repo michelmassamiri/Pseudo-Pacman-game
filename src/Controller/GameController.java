@@ -93,16 +93,16 @@ public class GameController {
 	 */
 	public void drawLabyrinth() {
 		Labyrinth labyrinth = model.getLabyrinth();
-		for(int i =0; i<Vertex.EAST_BORDER; i++) {
-			for(int j=0; j<Vertex.SOUTH_BORDER; j++) {
-				if (labyrinth.isClosed(labyrinth.getVertexByXY(i,j), Directions.NORTH))
-					ViewFrame.drawWall(i, j, i-1, j, ViewFrame.WALLCOLOR);
-				if (labyrinth.isClosed(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
-					ViewFrame.drawWall(i, j, i+1, j, ViewFrame.WALLCOLOR);
-				if (labyrinth.isClosed(labyrinth.getVertexByXY(i,j), Directions.WEST))
+		for(int i =1; i<Vertex.EAST_BORDER; i++) {
+			for(int j=1; j<Vertex.SOUTH_BORDER; j++) {
+				if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.NORTH))
 					ViewFrame.drawWall(i, j, i, j-1, ViewFrame.WALLCOLOR);
-				if (labyrinth.isClosed(labyrinth.getVertexByXY(i,j), Directions.EAST))
+				if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
 					ViewFrame.drawWall(i, j, i, j+1, ViewFrame.WALLCOLOR);
+				if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.WEST))
+					ViewFrame.drawWall(i, j, i-1, j, ViewFrame.WALLCOLOR);
+				if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.EAST))
+					ViewFrame.drawWall(i, j, i+1, j, ViewFrame.WALLCOLOR);
 				
 			}
 		}
