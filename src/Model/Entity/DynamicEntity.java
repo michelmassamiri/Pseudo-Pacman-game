@@ -1,6 +1,8 @@
 package Model.Entity;
 
 import Model.Directions;
+import Model.Labyrinth;
+import Model.Vertex;
 import Model.Resources.ResourceManager;
 import Model.Resources.Resources;
 import javafx.scene.image.ImageView;
@@ -11,6 +13,7 @@ public abstract class DynamicEntity implements Entity{
 
     protected Vector<Float> pos;
     protected ImageView imageView;
+    protected Labyrinth labyrinth;
 
     public Float getPosX() { return pos.elementAt(0); }
     public Float getPosY() { return pos.elementAt(1); }
@@ -38,17 +41,23 @@ public abstract class DynamicEntity implements Entity{
     {
         switch (dir) {
             case EAST:
-                setPosX(getPosX() + 1.0f);
+            	if(getPosX() < Vertex.EAST_BORDER-1 && !labyrinth.isClosed(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir))
+            		setPosX(getPosX() + 1.0f);
                 break;
             case WEST:
-                setPosX(getPosX() - 1.0f);
+            	if(getPosX() > Vertex.WEST_BORDER && !labyrinth.isClosed(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir))
+            		setPosX(getPosX() - 1.0f);
                 break;
             case NORTH:
-                setPosY(getPosY() - 1.0f);
+            	if(getPosY() > Vertex.NORTH_BORDER && !labyrinth.isClosed(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir))
+            		setPosY(getPosY() - 1.0f);
                 break;
             case SOUTH:
-                setPosY(getPosY() + 1.0f);
+            	if(getPosY() < Vertex.SOUTH_BORDER-1 && !labyrinth.isClosed(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir))
+            		setPosY(getPosY() + 1.0f);
                 break;
+            default:
+            	break;
         }
     }
 

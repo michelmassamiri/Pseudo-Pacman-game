@@ -1,6 +1,7 @@
 package Model.Entity;
 
 import Model.Directions;
+import Model.Labyrinth;
 import Model.Resources.ResourceManager;
 import Model.Resources.Resources;
 import javafx.scene.image.ImageView;
@@ -33,7 +34,8 @@ public class Player extends DynamicEntity{
         movementKeys = new HashMap<>();
         pos = new Vector<>();
         imageView = new ImageView(ResourceManager.getInstance().get(Resources.PLAYER));
-
+        labyrinth = Labyrinth.getInstance();
+        
         pos.add(new Float(0.0f));
         pos.add(new Float(0.0f));
 

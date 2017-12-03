@@ -82,9 +82,13 @@ public class GameController {
 		@Override
 		public void handle (KeyEvent event) {
 			KeyCode keycode = event.getCode();
-			player.setDirection(keycode);
-			player.move(player.getDirection(keycode));
-			viewFrame.update();
+			if (keycode == KeyCode.LEFT || keycode == KeyCode.RIGHT || keycode == KeyCode.UP || keycode == KeyCode.DOWN){
+				player.setDirection(keycode);
+				player.move(player.getDirection(keycode));
+				viewFrame.update();
+			}
+			if (keycode == KeyCode.ESCAPE)
+				System.exit(0);
 		}	
 		
 			
@@ -95,8 +99,8 @@ public class GameController {
 	 */
 	public void drawLabyrinth() {
 		Labyrinth labyrinth = model.getLabyrinth();
-		for(int i =1; i<Vertex.EAST_BORDER; i++) {
-			for(int j=1; j<Vertex.SOUTH_BORDER; j++) {
+		for(int i =0; i<Vertex.EAST_BORDER; i++) {
+			for(int j=0; j<Vertex.SOUTH_BORDER; j++) {
 				if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.NORTH))
 					ViewFrame.drawWall(i, j, i, j-1, ViewFrame.WALLCOLOR);
 				if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
