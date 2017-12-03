@@ -59,6 +59,7 @@ public class ViewFrame {
 			drawObject(GameController.getInstance().getEntities().elementAt(i).getDrawable(), GameController.getInstance().getEntities().elementAt(i).getPosX(), GameController.getInstance().getEntities().elementAt(i).getPosY() );
 		}
 		GameController.getInstance().drawLabyrinth();
+		scene.setOnKeyPressed(GameController.getInstance().eventHandlerkey);
 		primaryStage.show();
 	}
 	
@@ -164,7 +165,7 @@ public class ViewFrame {
 	 */
 	public void setOnKeyPressed () {
 		
-		scene.setOnKeyPressed(GameController.getInstance().eventHandlerkey);
+		pane.setOnKeyPressed(GameController.getInstance().eventHandlerkey);
 	}
 	
 
@@ -174,8 +175,16 @@ public class ViewFrame {
 	public void update() {
 		int size = GameController.getInstance().getEntities().size();
 		for (int i=0; i<size; i++) {
-			drawObject(GameController.getInstance().getEntities().elementAt(i).getDrawable(), GameController.getInstance().getEntities().elementAt(i).getPosX(), GameController.getInstance().getEntities().elementAt(i).getPosY());
+			updateObject(GameController.getInstance().getEntities().elementAt(i).getDrawable(), GameController.getInstance().getEntities().elementAt(i).getPosX(), GameController.getInstance().getEntities().elementAt(i).getPosY());
 		}
+	}
+	
+	public void updateObject(ImageView sprite, Float x, Float y){
+		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN) ;
+		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN) ;
+		
+		sprite.setX(xt);
+		sprite.setY(yt);
 	}
 	
 }

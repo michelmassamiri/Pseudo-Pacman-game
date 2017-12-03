@@ -83,8 +83,10 @@ public class GameController {
 		public void handle (KeyEvent event) {
 			KeyCode keycode = event.getCode();
 			player.setDirection(keycode);
-			viewFrame.drawObject(GameController.getInstance().getEntities().elementAt(0).getDrawable(),player.getPosX(), player.getPosY());					
+			player.move(player.getDirection(keycode));
+			viewFrame.update();
 		}	
+		
 			
 	};
 	
