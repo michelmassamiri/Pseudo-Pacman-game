@@ -79,7 +79,8 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	 * @return true if there is no vertex yet, false otherwise
 	 */
 	public boolean doesntExist(Vertex vertex, Directions dir) {
-		return getEdge(vertex, dir) == null && getVertexByDir(vertex, dir) == null;
+		Vertex v = getVertexByDir(vertex, dir); 
+		return v == null ;
 	}
 	
 	/**
@@ -92,7 +93,7 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	    Vertex v = getVertexByDir(vertex, dir);
 	    if(v == null)
 	        return null;
-	    return getEdge(v, vertex);
+	    return getEdge(vertex, v);
 	}
 	
 	/**
@@ -164,13 +165,10 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	        ++x;
 	    else if(dir == Directions.WEST)
 	        --x;
-        Vertex v = new Vertex(x, y, 0), ret = null;
-        for(Vertex current : vertexSet())
-        {
-            if(current.compareTo(v) == 0)
-                return current;
-        }
-        return null;
+	    
+	    Vertex v = getVertexByXY(x, y) ;
+	    return v ;
+	    
 	}
 	
 	/**
@@ -334,9 +332,8 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	 * @return A vertex in the position(x,y), null in the case of no such vertex .
 	 */
 	public Vertex getVertexByXY(int x, int y) {
-	    Vertex v = new Vertex(x, y, 0);
 		for(Vertex vertex : instance.vertexSet()) {
-			if(v.compareTo(vertex) == 0)
+			if(vertex.getX() == x && vertex.getY() == y)
 			    return vertex;
 		}
 		return null ;
