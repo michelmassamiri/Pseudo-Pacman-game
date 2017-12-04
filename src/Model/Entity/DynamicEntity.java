@@ -41,19 +41,19 @@ public abstract class DynamicEntity implements Entity{
     {
         switch (dir) {
             case EAST:
-            	if(getPosX() < Vertex.EAST_BORDER-1 && !labyrinth.isClosed(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir))
+            	if(getPosX() < Vertex.EAST_BORDER-1 && !labyrinth.isClosed(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir) && !labyrinth.isClosedDoor(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir))
             		setPosX(getPosX() + 1.0f);
                 break;
             case WEST:
-            	if(getPosX() > Vertex.WEST_BORDER && !labyrinth.isClosed(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir))
+            	if(getPosX() > Vertex.WEST_BORDER && !labyrinth.isClosed(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir) && !labyrinth.isClosedDoor(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir))
             		setPosX(getPosX() - 1.0f);
                 break;
             case NORTH:
-            	if(getPosY() > Vertex.NORTH_BORDER && !labyrinth.isClosed(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir))
+            	if(getPosY() > Vertex.NORTH_BORDER && !labyrinth.isClosed(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir) && !labyrinth.isClosedDoor(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir))
             		setPosY(getPosY() - 1.0f);
                 break;
             case SOUTH:
-            	if(getPosY() < Vertex.SOUTH_BORDER-1 && !labyrinth.isClosed(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir))
+            	if(getPosY() < Vertex.SOUTH_BORDER-1 && !labyrinth.isClosed(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir) && !labyrinth.isClosedDoor(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir))
             		setPosY(getPosY() + 1.0f);
                 break;
             default:

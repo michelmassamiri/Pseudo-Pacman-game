@@ -11,6 +11,7 @@ import View.ViewFrame;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class GameController {
@@ -99,17 +100,138 @@ public class GameController {
 	 */
 	public void drawLabyrinth() {
 		Labyrinth labyrinth = model.getLabyrinth();
-		for(int i =0; i<Vertex.EAST_BORDER; i++) {
-			for(int j=0; j<Vertex.SOUTH_BORDER; j++) {
-				if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.NORTH))
-					ViewFrame.drawWall(i, j, i, j-1, ViewFrame.WALLCOLOR);
-				if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
-					ViewFrame.drawWall(i, j, i, j+1, ViewFrame.WALLCOLOR);
-				if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.WEST))
-					ViewFrame.drawWall(i, j, i-1, j, ViewFrame.WALLCOLOR);
-				if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.EAST))
-					ViewFrame.drawWall(i, j, i+1, j, ViewFrame.WALLCOLOR);
-				
+		for(int i =0; i<=Vertex.EAST_BORDER; i++) {
+			for(int j=0; j<=Vertex.SOUTH_BORDER; j++) {
+				//corner
+				if(i==0 && j==0){
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
+						ViewFrame.drawWall(i, j, i, j+1, ViewFrame.WALLCOLOR);
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.EAST))
+						ViewFrame.drawWall(i, j, i+1, j, ViewFrame.WALLCOLOR);
+					
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
+						ViewFrame.drawWall(i, j, i, j+1, Color.AZURE);
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.EAST))
+						ViewFrame.drawWall(i, j, i+1, j, Color.AZURE);
+					System.out.print("hG");
+				}
+				if(i==0 && j==Vertex.SOUTH_BORDER){
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.NORTH))					
+						ViewFrame.drawWall(i, j, i, j-1, ViewFrame.WALLCOLOR);
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.EAST))
+						ViewFrame.drawWall(i, j, i+1, j, ViewFrame.WALLCOLOR);
+					
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.NORTH))
+						ViewFrame.drawWall(i, j, i, j-1, Color.AZURE);
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.EAST))
+						ViewFrame.drawWall(i, j, i+1, j, Color.AZURE);
+				}
+				if(i==Vertex.EAST_BORDER  && j==0){
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
+						ViewFrame.drawWall(i, j, i, j+1, ViewFrame.WALLCOLOR);
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.WEST))
+						ViewFrame.drawWall(i, j, i-1, j, ViewFrame.WALLCOLOR);
+					
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
+						ViewFrame.drawWall(i, j, i, j+1, Color.AZURE);
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.WEST))
+						ViewFrame.drawWall(i, j, i-1, j, Color.AZURE);
+				}
+				if(i==Vertex.EAST_BORDER && j==Vertex.SOUTH_BORDER){
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.NORTH))					
+						ViewFrame.drawWall(i, j, i, j-1, ViewFrame.WALLCOLOR);
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.WEST))
+						ViewFrame.drawWall(i, j, i-1, j, ViewFrame.WALLCOLOR);
+					
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.NORTH))
+						ViewFrame.drawWall(i, j, i, j-1, Color.AZURE);
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.WEST))
+						ViewFrame.drawWall(i, j, i-1, j, Color.AZURE);
+				}
+				//first column
+				if( i==0 && 0<j && j<Vertex.SOUTH_BORDER){
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.NORTH))					
+						ViewFrame.drawWall(i, j, i, j-1, ViewFrame.WALLCOLOR);
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
+						ViewFrame.drawWall(i, j, i, j+1, ViewFrame.WALLCOLOR);
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.EAST))
+						ViewFrame.drawWall(i, j, i+1, j, ViewFrame.WALLCOLOR);
+					
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.NORTH))
+						ViewFrame.drawWall(i, j, i, j-1, Color.AZURE);
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
+						ViewFrame.drawWall(i, j, i, j+1, Color.AZURE);
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.EAST))
+						ViewFrame.drawWall(i, j, i+1, j, Color.AZURE);
+				}
+				//first row
+				if(0<i && i<Vertex.EAST_BORDER && j==0){
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
+						ViewFrame.drawWall(i, j, i, j+1, ViewFrame.WALLCOLOR);
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.WEST))
+						ViewFrame.drawWall(i, j, i-1, j, ViewFrame.WALLCOLOR);
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.EAST))
+						ViewFrame.drawWall(i, j, i+1, j, ViewFrame.WALLCOLOR);
+					
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
+						ViewFrame.drawWall(i, j, i, j+1, Color.AZURE);
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.WEST))
+						ViewFrame.drawWall(i, j, i-1, j, Color.AZURE);
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.EAST))
+						ViewFrame.drawWall(i, j, i+1, j, Color.AZURE);
+				}
+				//last row
+				if(0<i && i<Vertex.EAST_BORDER && j==Vertex.SOUTH_BORDER){
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.NORTH))					
+						ViewFrame.drawWall(i, j, i, j-1, ViewFrame.WALLCOLOR);
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.WEST))
+						ViewFrame.drawWall(i, j, i-1, j, ViewFrame.WALLCOLOR);
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.EAST))
+						ViewFrame.drawWall(i, j, i+1, j, ViewFrame.WALLCOLOR);
+					
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.NORTH))
+						ViewFrame.drawWall(i, j, i, j-1, Color.AZURE);
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.WEST))
+						ViewFrame.drawWall(i, j, i-1, j, Color.AZURE);
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.EAST))
+						ViewFrame.drawWall(i, j, i+1, j, Color.AZURE);
+				}
+				//last column
+				if( i==Vertex.EAST_BORDER && 0<j && j<Vertex.SOUTH_BORDER){
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.NORTH))					
+						ViewFrame.drawWall(i, j, i, j-1, ViewFrame.WALLCOLOR);
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
+						ViewFrame.drawWall(i, j, i, j+1, ViewFrame.WALLCOLOR);
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.WEST))
+						ViewFrame.drawWall(i, j, i-1, j, ViewFrame.WALLCOLOR);
+					
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.NORTH))
+						ViewFrame.drawWall(i, j, i, j-1, Color.AZURE);
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
+						ViewFrame.drawWall(i, j, i, j+1, Color.AZURE);
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.WEST))
+						ViewFrame.drawWall(i, j, i-1, j, Color.AZURE);
+				}
+				//not border
+				if(0<i && i<Vertex.EAST_BORDER && 0<j && j<Vertex.SOUTH_BORDER){
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.NORTH))					
+						ViewFrame.drawWall(i, j, i, j-1, ViewFrame.WALLCOLOR);
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
+						ViewFrame.drawWall(i, j, i, j+1, ViewFrame.WALLCOLOR);
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.WEST))
+						ViewFrame.drawWall(i, j, i-1, j, ViewFrame.WALLCOLOR);
+					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.EAST))
+						ViewFrame.drawWall(i, j, i+1, j, ViewFrame.WALLCOLOR);
+					
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.NORTH))
+						ViewFrame.drawWall(i, j, i, j-1, Color.AZURE);
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
+						ViewFrame.drawWall(i, j, i, j+1, Color.AZURE);
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.WEST))
+						ViewFrame.drawWall(i, j, i-1, j, Color.AZURE);
+					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.EAST))
+						ViewFrame.drawWall(i, j, i+1, j, Color.AZURE);
+				}
 			}
 		}
 	}

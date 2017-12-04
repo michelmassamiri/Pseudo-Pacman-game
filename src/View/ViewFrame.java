@@ -52,8 +52,6 @@ public class ViewFrame {
 		primaryStage.setTitle("Pseudo PAC-MAN");
 		drawFrame(primaryStage, 15, 15);
 
-		GameController.getInstance().getEntities();
-
 		int size = GameController.getInstance().getEntities().size();
 		for (int i=0; i<size; ++i) {
 			drawObject(GameController.getInstance().getEntities().elementAt(i).getDrawable(), GameController.getInstance().getEntities().elementAt(i).getPosX(), GameController.getInstance().getEntities().elementAt(i).getPosY() );
