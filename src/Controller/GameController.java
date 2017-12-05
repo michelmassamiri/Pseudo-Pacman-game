@@ -9,8 +9,6 @@ import Model.Resources.Resources;
 import View.ViewFrame;
 
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.animation.Animation;
 import javafx.event.ActionEvent;
@@ -27,6 +25,7 @@ public class GameController {
 	private ViewFrame viewFrame;
 	private Player player;
 	private BadGuy bad1, bad2;
+	private Timeline timeline;
 	
 	
 
@@ -69,20 +68,25 @@ public class GameController {
 		model.addEntity(buttonClose);
 		model.addEntity(door);
 		model.addEntity(bad2);
-		Timeline timeline = new Timeline(new KeyFrame(
+		timeline = new Timeline(new KeyFrame(
 		        Duration.millis(2500),
-		        event));
+		        eventMoveBadGuy));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
 
 	}
 	
-	public EventHandler<ActionEvent> event = new EventHandler<ActionEvent>(){
+	public EventHandler<ActionEvent> eventMoveBadGuy = new EventHandler<ActionEvent>(){
 
 		public void handle(ActionEvent event) {
 			bad1.Manhatan(model.getLabyrinth());
 			bad2.Manhatan(model.getLabyrinth());
 			viewFrame.update();
+			if(bad1.getAction().isStartable() || bad2.getAction().isStartable()){
+				gameOver= true;
+				timeline.stop();
+				viewFrame.gameOver(score);
+			}
 		}
 	};
 	
@@ -256,12 +260,6 @@ public class GameController {
 				}
 			}
 		}
-	}
-
-	
-	public BadGuy getBad1(){
-		return bad1;
-	}
-	
+	}	
 	
 }

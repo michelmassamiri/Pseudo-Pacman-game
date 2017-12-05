@@ -1,13 +1,17 @@
 package View;
 
+
 import Controller.GameController;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 
@@ -184,5 +188,24 @@ public class ViewFrame {
 		sprite.setX(xt);
 		sprite.setY(yt);
 	}
+	
+	public void gameOver(int score){
+		Stage stage = new Stage();
+		VBox boxOver = new VBox();
+		
+		Label textOver = new Label("You Loose !!");
+		Label textScore = new Label("your score: "+score);
+		boxOver.getChildren().add(textOver);
+		boxOver.getChildren().add(textScore);
+		Scene sceneOver = new Scene(boxOver);
+		stage.setScene(sceneOver);
+		stage.setTitle("GAME OVER");
+		stage.setHeight(75);
+		stage.setWidth(200);
+		stage.setResizable(false);
+		stage.show();
+	}
+	
+	
 	
 }

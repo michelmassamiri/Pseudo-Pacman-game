@@ -73,5 +73,9 @@ public class BadGuy extends DynamicEntity {
 
         }
     }
+    
+    public BadGuyAction getAction(){
+    	return action;
+    }
 
 }
