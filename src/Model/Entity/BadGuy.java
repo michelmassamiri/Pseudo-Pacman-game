@@ -30,7 +30,8 @@ public class BadGuy extends DynamicEntity {
 	public BadGuy(float x, float y) {
 		pos = new Vector<>();
         imageView = new ImageView(ResourceManager.getInstance().get(Resources.BAD_GUY));
-
+        labyrinth = Labyrinth.getInstance();
+        
         action = new BadGuyAction(this);
 
         pos.add(x);
@@ -61,6 +62,7 @@ public class BadGuy extends DynamicEntity {
 
     public void Manhatan(Labyrinth labyrinth)
     {
+    	labyrinth.launchManhattan(this.getVertex(labyrinth), labyrinth.getVertexByXY((int)(float)Player.getInstance().getPosX(), (int)(float)Player.getInstance().getPosY()));
         Vertex vertex = this.getVertex(labyrinth);
         for ( Directions dir : Directions.values() ) {
             Vertex next =  labyrinth.getVertexByDir(vertex, dir);

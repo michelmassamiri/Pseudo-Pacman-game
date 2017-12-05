@@ -8,21 +8,30 @@ import Model.Resources.Resources;
 
 import View.ViewFrame;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
+import javafx.animation.Animation;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class GameController {
 	private static GameController instance = null;
 	private Model model;
 	private ViewFrame viewFrame;
 	private Player player;
+	private BadGuy bad1, bad2;
+	
 	
 
 	private int score;
-	private boolean gameOver; 
+	private boolean gameOver;
 	
 	/**
 	 * Design Pattern Singleton of the Game Controller
@@ -39,10 +48,10 @@ public class GameController {
 		viewFrame = ViewFrame.getInstance();
 	    model.loadAll();
 		player = Player.getInstance();
-		BadGuy bad1 = new BadGuy();
+		bad1 = new BadGuy();
 		bad1.setPosX(1);
 		bad1.setPosY(2);
-		BadGuy bad2 = new BadGuy(3,6);
+		bad2 = new BadGuy(3,6);
 		StaticEntity candy1 = new StaticEntity(Resources.CANDY_1, 2, 1);
 		StaticEntity candy2 = new StaticEntity(Resources.CANDY_2, 3, 4);
 		StaticEntity candy3 = new StaticEntity(Resources.CANDY_3, 5, 5);
@@ -60,8 +69,22 @@ public class GameController {
 		model.addEntity(buttonClose);
 		model.addEntity(door);
 		model.addEntity(bad2);
-		
+		Timeline timeline = new Timeline(new KeyFrame(
+		        Duration.millis(2500),
+		        event));
+		timeline.setCycleCount(Animation.INDEFINITE);
+		timeline.play();
+
 	}
+	
+	public EventHandler<ActionEvent> event = new EventHandler<ActionEvent>(){
+
+		public void handle(ActionEvent event) {
+			bad1.Manhatan(model.getLabyrinth());
+			bad2.Manhatan(model.getLabyrinth());
+			viewFrame.update();
+		}
+	};
 	
 	public Vector<Entity> getEntities(){
 		return model.getEntities();
@@ -113,7 +136,6 @@ public class GameController {
 						ViewFrame.drawWall(i, j, i, j+1, Color.AZURE);
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.EAST))
 						ViewFrame.drawWall(i, j, i+1, j, Color.AZURE);
-					System.out.print("hG");
 				}
 				if(i==0 && j==Vertex.SOUTH_BORDER){
 					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.NORTH))					
@@ -235,5 +257,11 @@ public class GameController {
 			}
 		}
 	}
+
+	
+	public BadGuy getBad1(){
+		return bad1;
+	}
+	
 	
 }
