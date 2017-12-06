@@ -76,6 +76,10 @@ public class Model {
     {
         entities.add(e);
     }
+    
+    public void supEntity(Entity e){
+    	entities.remove(entities.indexOf(e));
+    }
 
     /**
      * Method permitting to load every resources in the game at once. (Usuful, since the number of resources is low)

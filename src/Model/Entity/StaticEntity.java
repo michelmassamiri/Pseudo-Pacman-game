@@ -9,8 +9,9 @@ import javafx.scene.image.ImageView;
 
 public class StaticEntity implements Entity {
 
-	private Vector<Float> pos;
-	private ImageView imageView;
+	protected Vector<Float> pos;
+	protected ImageView imageView;
+	protected Action action;
 
 	
 	public StaticEntity(Resources resource) {
@@ -29,8 +30,6 @@ public class StaticEntity implements Entity {
         pos.add(y);
 	}
 
-	private Action action;
-
 	public Float getPosX() { return pos.elementAt(0); }
 	public Float getPosY() { return pos.elementAt(1); }
 	public Vector<Float> getPos() { return (Vector<Float>) pos.clone(); }
@@ -48,8 +47,8 @@ public class StaticEntity implements Entity {
 		imageView = new ImageView(rm.get(res));
 	}
 
-	public void setAction(Action a) { action = a; }
+	//public void setAction(Action a) { action = a; }
     public Action getAction() { return action; }
-    public void action() { action.start(); }
+    //public void action() { action.start(); }
 
 }

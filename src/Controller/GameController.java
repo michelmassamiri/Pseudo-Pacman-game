@@ -31,6 +31,7 @@ public class GameController {
 
 	private int score;
 	private boolean gameOver;
+	private boolean win;
 	
 	/**
 	 * Design Pattern Singleton of the Game Controller
@@ -98,6 +99,30 @@ public class GameController {
 		return model;
 	}
 	
+	public void setScore(int value){
+		score = score + value;
+	}
+	
+	public int getScore(){
+		return score;
+	}
+	
+	public void setGameOver(boolean value){
+		gameOver =  value;
+	}
+	
+	public boolean getGameOver(){
+		return gameOver;
+	}
+	
+	public void setWin(boolean value){
+		win =  value;
+	}
+	
+	public boolean getWin(){
+		return win;
+	}
+	
 /* * Launch game's display
 	 * @param primaryStage the javafx's main stage
 	 */
@@ -114,6 +139,7 @@ public class GameController {
 				player.setDirection(keycode);
 				player.move(player.getDirection(keycode));
 				viewFrame.update();
+				//check action door is starteable
 			}
 			if (keycode == KeyCode.ESCAPE)
 				System.exit(0);

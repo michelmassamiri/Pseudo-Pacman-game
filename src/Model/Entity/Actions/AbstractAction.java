@@ -1,10 +1,16 @@
 package Model.Entity.Actions;
 
+import Model.Entity.Player;
+
 public abstract class AbstractAction implements Action{
 
     protected boolean done = false;
     protected boolean redone = false;
-
+    protected Player p;
+    
+    protected AbstractAction(){
+    	p = Player.getInstance();
+    }
 
     @Override
     public boolean isDone() {

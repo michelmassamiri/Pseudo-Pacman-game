@@ -1,17 +1,15 @@
 package Model.Entity.Actions;
 
 import Model.Entity.BadGuy;
-import Model.Entity.Player;
 
 public class BadGuyAction extends AbstractAction{
 
-    private Player p;
     private BadGuy b;
     private boolean lost;
 
     public BadGuyAction(BadGuy badGuy)
     {
-        p = Player.getInstance();
+        super();
         lost = false;
         redone = true;
         b = badGuy;
