@@ -9,4 +9,9 @@ public class StaticEntityCandy extends StaticEntity {
 		super(resource);
 		action = new StaticCandyAction(this, score);
 	}	
+	
+	public StaticEntityCandy(Resources resource, float x, float y, int score) {
+		super(resource, x, y);
+		action = new StaticCandyAction(this, score);
+	}	
 }

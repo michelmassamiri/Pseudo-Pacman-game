@@ -78,7 +78,7 @@ public class Model {
     }
     
     public void supEntity(Entity e){
-    	entities.remove(entities.indexOf(e));
+    	entities.remove(e);
     }
 
     /**

@@ -189,6 +189,10 @@ public class ViewFrame {
 		sprite.setY(yt);
 	}
 	
+	public Pane getPane(){
+		return pane;
+	}
+	
 	public void gameOver(int score){
 		Stage stage = new Stage();
 		VBox boxOver = new VBox();
@@ -206,6 +210,22 @@ public class ViewFrame {
 		stage.show();
 	}
 	
+	public void win(int score){
+		Stage stage = new Stage();
+		VBox boxOver = new VBox();
+		
+		Label textOver = new Label("You Win !!");
+		Label textScore = new Label("your score: "+score);
+		boxOver.getChildren().add(textOver);
+		boxOver.getChildren().add(textScore);
+		Scene sceneOver = new Scene(boxOver);
+		stage.setScene(sceneOver);
+		stage.setTitle("VICTORY");
+		stage.setHeight(75);
+		stage.setWidth(200);
+		stage.setResizable(false);
+		stage.show();
+	}
 	
 	
 }

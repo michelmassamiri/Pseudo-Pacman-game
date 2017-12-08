@@ -9,5 +9,10 @@ public class StaticEntityDoor extends StaticEntity{
 		super(resource);
 		action = new StaticDoorAction(this);
 	}
+	
+	public StaticEntityDoor(Resources resource, float x, float y) {
+		super(resource, x, y);
+		action = new StaticDoorAction(this);
+	}
 
 }

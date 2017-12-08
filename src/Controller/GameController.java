@@ -25,6 +25,8 @@ public class GameController {
 	private ViewFrame viewFrame;
 	private Player player;
 	private BadGuy bad1, bad2;
+	private StaticEntityDoor door;
+	private StaticEntityCandy candy1, candy2, candy3, candy4;
 	private Timeline timeline;
 	
 	
@@ -52,13 +54,13 @@ public class GameController {
 		bad1.setPosX(1);
 		bad1.setPosY(2);
 		bad2 = new BadGuy(3,6);
-		StaticEntity candy1 = new StaticEntity(Resources.CANDY_1, 2, 1);
-		StaticEntity candy2 = new StaticEntity(Resources.CANDY_2, 3, 4);
-		StaticEntity candy3 = new StaticEntity(Resources.CANDY_3, 5, 5);
-		StaticEntity candy4 = new StaticEntity(Resources.CANDY_4, 6, 5);
+		candy1 = new StaticEntityCandy(Resources.CANDY_1, 2, 1, 10);
+		candy2 = new StaticEntityCandy(Resources.CANDY_2, 3, 4, 20);
+		candy3 = new StaticEntityCandy(Resources.CANDY_3, 5, 5, 30);
+		candy4 = new StaticEntityCandy(Resources.CANDY_4, 6, 5, 40);
 		StaticEntity buttonOpen = new StaticEntity(Resources.BUTTON_OPEN, 7, 5);
 		StaticEntity buttonClose = new StaticEntity(Resources.BUTTON_CLOSED, 8, 5);
-		StaticEntity door = new StaticEntity(Resources.DOOR_OPEN, 9, 5);
+		door = new StaticEntityDoor(Resources.DOOR_OPEN, 9, 5);
 		model.addEntity(player);
 		model.addEntity(bad1);
 		model.addEntity(candy1);
@@ -138,8 +140,50 @@ public class GameController {
 			if (keycode == KeyCode.LEFT || keycode == KeyCode.RIGHT || keycode == KeyCode.UP || keycode == KeyCode.DOWN){
 				player.setDirection(keycode);
 				player.move(player.getDirection(keycode));
+				
+				if(candy1.getAction().isStartable()){
+					candy1.getAction().actions();
+					candy1.setPosX(-1);
+					viewFrame.update();
+					model.supEntity(candy1);
+					viewFrame.getPane().getChildren().remove(candy1);
+				}
+				if(candy2.getAction().isStartable()){
+					candy2.getAction().actions();
+					candy2.setPosX(-1);
+					viewFrame.update();
+					model.supEntity(candy2);
+					viewFrame.getPane().getChildren().remove(candy2);
+				}
+				if(candy3.getAction().isStartable()){
+					candy3.getAction().actions();
+					candy3.setPosX(-1);
+					viewFrame.update();
+					model.supEntity(candy3);
+					viewFrame.getPane().getChildren().remove(candy3);
+				}
+				if(candy4.getAction().isStartable()){
+					candy4.getAction().actions();
+					candy4.setPosX(-1);
+					viewFrame.update();
+					model.supEntity(candy4);
+					viewFrame.getPane().getChildren().remove(candy4);
+				}
 				viewFrame.update();
-				//check action door is starteable
+				
+				if(door.getAction().isStartable()){
+					door.getAction().actions();
+					if(win){
+						timeline.stop();
+						viewFrame.win(score);
+					}
+				}
+				if(bad1.getAction().isStartable() || bad2.getAction().isStartable()){
+					gameOver= true;
+					timeline.stop();
+					viewFrame.gameOver(score);
+				}
+							
 			}
 			if (keycode == KeyCode.ESCAPE)
 				System.exit(0);
