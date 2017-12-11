@@ -129,7 +129,7 @@ public class GameController {
 	 * @param primaryStage the javafx's main stage
 	 */
 	public void start(Stage primaryStage){
-		viewFrame.start(primaryStage);
+		viewFrame.start(primaryStage, Vertex.EAST_BORDER+1, Vertex.SOUTH_BORDER+1);
 		primaryStage.show();
 
 	}	

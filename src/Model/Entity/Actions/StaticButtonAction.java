@@ -6,11 +6,14 @@ import Model.Entity.StaticEntityButton;
 public class StaticButtonAction extends AbstractAction{
 	
 	private	StaticEntityButton button;
+	private float x, y;
 	 
 	
-    public StaticButtonAction(StaticEntityButton entity){
+    public StaticButtonAction(StaticEntityButton entity, float x, float y ){
     	super();
     	button = entity;
+    	this.x = x;
+    	this.y = y;
     }
     
     public boolean isStartable() {
@@ -19,6 +22,6 @@ public class StaticButtonAction extends AbstractAction{
     
 	@Override
 	public void actions() {
-		
+		GameController.getInstance().deleteWall(x, y);
 	}
 }

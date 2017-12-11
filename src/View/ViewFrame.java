@@ -52,9 +52,9 @@ public class ViewFrame {
 	 * Launch game's display
 	 * @param primaryStage the main stage of the game
 	 */
-	public void start(Stage primaryStage){
+	public void start(Stage primaryStage, int nbx, int nby){
 		primaryStage.setTitle("Pseudo PAC-MAN");
-		drawFrame(primaryStage, 16, 16);
+		drawFrame(primaryStage, nbx, nby);
 
 		int size = GameController.getInstance().getEntities().size();
 		for (int i=0; i<size; ++i) {
