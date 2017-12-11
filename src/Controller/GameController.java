@@ -136,10 +136,10 @@ public class GameController {
 	public EventHandler<KeyEvent> eventHandlerkey = new EventHandler<KeyEvent>() {
 		@Override
 		public void handle (KeyEvent event) {
+
 			KeyCode keycode = event.getCode();
-			if (keycode == KeyCode.LEFT || keycode == KeyCode.RIGHT || keycode == KeyCode.UP || keycode == KeyCode.DOWN){
-				player.setDirection(keycode);
-				player.move(player.getDirection(keycode));
+			if (player.getDirection(keycode) != null){
+				Player.getInstance().move(Player.getInstance().getDirection(keycode));
 				
 				if(candy1.getAction().isStartable()){
 					candy1.getAction().actions();

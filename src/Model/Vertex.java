@@ -34,8 +34,8 @@ public class Vertex {
 	 */
 	public Vertex(int nbr) {
 		Random rand = new Random() ;
-		x = rand.nextInt((SOUTH_BORDER - EAST_BORDER) + 1) + EAST_BORDER ;
-		y = rand.nextInt((SOUTH_BORDER - EAST_BORDER) + 1) + EAST_BORDER ;
+		x = rand.nextInt() % EAST_BORDER+1;
+		y = rand.nextInt() % SOUTH_BORDER+1;
 		this.nbr = nbr ;
 	}
 	

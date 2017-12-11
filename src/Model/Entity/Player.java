@@ -56,7 +56,9 @@ public class Player extends DynamicEntity{
      * Remove a key from used to control the player
      * @param key the key to remove from the table
      * 
-     */ 
+     */
+    public void removeKey(KeyCode key) { movementKeys.remove(key); }
+
     /**
      * 
      * @param key: Read KeyBoard event in order to give the direction of player's movement, Handler Exception is missing 
@@ -83,7 +85,7 @@ public class Player extends DynamicEntity{
     	   	}
 		return move;
     }
-    public void removeKey(KeyCode key) { movementKeys.remove(key); }
+
 
     /**
      * Method that gives a direction to make the player move when a key is entered

@@ -1,38 +1,49 @@
 package Tests;
 
 
+import Controller.GameController;
 import Model.Directions;
+import Model.Labyrinth;
+import com.sun.javafx.robot.FXRobot;
+import com.sun.javafx.robot.FXRobotFactory;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 import org.junit.*;
-
-
-import java.awt.*;
-
 import static org.junit.Assert.*;
 
 public class Player {
 
     private Model.Entity.Player p;
+    private Scene s;
+    private Pane pane;
+    private FXRobot robot;
 
     @Before
     public void init()
     {
         p = Model.Entity.Player.getInstance();
+        Labyrinth.getInstance().buildFull();
+        pane = new Pane();
+        s = new Scene(pane, 1000, 1000);
+        s.setOnKeyPressed(GameController.getInstance().eventHandlerkey);
+        robot = FXRobotFactory.createRobot(s);
     }
 
     @Test
     public void movementTest()
     {
-        assertEquals(p.getPosX(), new Float(0.0f));
-        assertEquals(p.getPosY(), new Float(0.0f));
+        Float one = 1.0f, zero = 0.0f;
+        assertEquals(p.getPosX(), zero);
+        assertEquals(p.getPosY(), zero);
         p.move(Directions.SOUTH);
         p.move(Directions.EAST);
-        assertEquals(p.getPosX(), new Float(1.0f));
-        assertEquals(p.getPosY(), new Float(1.0f));
+        assertEquals(p.getPosX(), one);
+        assertEquals(p.getPosY(), one);
         p.move(Directions.NORTH);
         p.move(Directions.WEST);
-        assertEquals(p.getPosX(), new Float(0.0f));
-        assertEquals(p.getPosY(), new Float(0.0f));
+        assertEquals(p.getPosX(), zero);
+        assertEquals(p.getPosY(), zero);
     }
 
     /**
@@ -45,17 +56,17 @@ public class Player {
     public void eventHandlingTest()
     {
         try{
-            //Robot robot = new Robot();
-            /*assertEquals(p.getPosX(), new Float(0.0f));
-            assertEquals(p.getPosY(), new Float(0.0f));
-            p.move(Directions.SOUTH);
-            p.move(Directions.EAST);
-            assertEquals(p.getPosX(), new Float(1.0f));
-            assertEquals(p.getPosY(), new Float(1.0f));
-            p.move(Directions.NORTH);
-            p.move(Directions.WEST);
+
             assertEquals(p.getPosX(), new Float(0.0f));
-            assertEquals(p.getPosY(), new Float(0.0f));*/
+            assertEquals(p.getPosY(), new Float(0.0f));
+            robot.keyPress(KeyCode.DOWN);
+            robot.keyPress(KeyCode.RIGHT);
+            //assertEquals(p.getPosX(), new Float(1.0f));
+            //assertEquals(p.getPosY(), new Float(1.0f));
+            robot.keyPress(KeyCode.UP);
+            robot.keyPress(KeyCode.LEFT);
+            assertEquals(p.getPosX(), new Float(0.0f));
+            assertEquals(p.getPosY(), new Float(0.0f));
         }
         catch (Exception e)
         {

@@ -71,6 +71,37 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 			}
 		}
 	}
+
+	public void buildFull()
+	{
+		Vertex v, v2;
+		for(int i = 0; i < Vertex.EAST_BORDER; ++i)
+		{
+			for(int j = 0; j < Vertex.SOUTH_BORDER; ++j)
+			{
+				v = new Vertex(i, j, 0);
+				instance.addVertex(v);
+			}
+		}
+		for(int i = 0; i < Vertex.EAST_BORDER; ++i)
+		{
+			for(int j = 0; j < Vertex.SOUTH_BORDER; ++j)
+			{
+				v = getVertexByXY(i, j);
+				v2 = getVertexByDir(v, Directions.NORTH);
+				if(v2 != null)
+					instance.addEdge(v, v2);
+				v2 = getVertexByDir(v, Directions.EAST);
+				if(v2 != null)
+					instance.addEdge(v, v2);
+				v2 = getVertexByDir(v, Directions.WEST);
+				if(v2 != null)
+					instance.addEdge(v, v2);
+				v2 = getVertexByDir(v, Directions.SOUTH);
+				if(v2 != null)
+					instance.addEdge(v, v2);			}
+		}
+	}
 	
 	/**
 	 * Method that tells if the designated vertex is already created or not
