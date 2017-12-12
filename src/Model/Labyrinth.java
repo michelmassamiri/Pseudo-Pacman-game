@@ -213,10 +213,12 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 	/**
 	 * Close a random door
 	 */
-	public void closeDoorRandom() {
+	public Edge closeDoorRandom() {
 		Edge edge = instance.randomEdge() ;
 		closeDoor(edge) ;
+		return edge;
 	}
+	
 	
 	/**
 	 * Method that tells if there is a wall from a specific vertex and a specific direction
@@ -309,6 +311,12 @@ public class Labyrinth extends SimpleGraph<Vertex, Edge> {
 			}
 		}
 	}
+	
+	public void openDoor(Edge edge) {
+		if(edge.getType() == Edge.Type.CLOSED_DOOR)
+			edge.setType(Edge.Type.OPENED_DOOR);
+	}
+	
 	
 	/**
 	 * The Manhattan's algorithm to calculate the distance between the source vertex and the target vertex .

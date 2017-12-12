@@ -41,7 +41,7 @@ public abstract class DynamicEntity implements Entity{
     {
         switch (dir) {
             case EAST:
-                if(getPosX() < Vertex.EAST_BORDER-1 && !labyrinth.isClosed(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir) && !labyrinth.isClosedDoor(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir))
+                if(getPosX() < Vertex.EAST_BORDER && !labyrinth.isClosed(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir) && !labyrinth.isClosedDoor(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir))
                     this.setPosX(this.getPosX() + 1.0f);
                 break;
             case WEST:
@@ -53,7 +53,7 @@ public abstract class DynamicEntity implements Entity{
             		setPosY(getPosY() - 1.0f);
                 break;
             case SOUTH:
-            	if(getPosY() < Vertex.SOUTH_BORDER-1 && !labyrinth.isClosed(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir) && !labyrinth.isClosedDoor(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir))
+            	if(getPosY() < Vertex.SOUTH_BORDER && !labyrinth.isClosed(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir) && !labyrinth.isClosedDoor(labyrinth.getVertexByXY((int)(float)getPosX(), (int)(float)getPosY()),dir))
             		setPosY(getPosY() + 1.0f);
                 break;
             default:

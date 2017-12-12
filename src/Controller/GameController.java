@@ -27,6 +27,8 @@ public class GameController {
 	private BadGuy bad1, bad2;
 	private StaticEntityDoor door;
 	private StaticEntityCandy candy1, candy2, candy3, candy4;
+	private StaticEntityButtonOpen buttonOpen;
+	private StaticEntityButtonClose buttonClose;
 	private Timeline timeline;
 	
 	
@@ -45,10 +47,21 @@ public class GameController {
 		return instance;
 	}
 	
+	/**
+	 * 
+	 */
 	private GameController(){
 		model = new Model();
 		viewFrame = ViewFrame.getInstance();
 	    model.loadAll();
+	    //Edge wall = model.getLabyrinth().closeDoorRandom();
+	    Vertex vertex = model.getLabyrinth().randomVertexByDir();
+	    Edge wall = model.getLabyrinth().getEdge(vertex, Directions.NORTH);
+	    while(wall == null){
+		    vertex = model.getLabyrinth().randomVertexByDir();
+		    wall = model.getLabyrinth().getEdge(vertex, Directions.NORTH);
+	    }
+	    model.getLabyrinth().closeDoor(wall);
 		player = Player.getInstance();
 		bad1 = new BadGuy();
 		bad1.setPosX(1);
@@ -58,8 +71,8 @@ public class GameController {
 		candy2 = new StaticEntityCandy(Resources.CANDY_2, 3, 4, 20);
 		candy3 = new StaticEntityCandy(Resources.CANDY_3, 5, 5, 30);
 		candy4 = new StaticEntityCandy(Resources.CANDY_4, 6, 5, 40);
-		StaticEntity buttonOpen = new StaticEntity(Resources.BUTTON_OPEN, 7, 5);
-		StaticEntity buttonClose = new StaticEntity(Resources.BUTTON_CLOSED, 8, 5);
+		buttonOpen = new StaticEntityButtonOpen(Resources.BUTTON_OPEN, vertex.getX()+1, vertex.getY(), wall);
+		buttonClose = new StaticEntityButtonClose(Resources.BUTTON_CLOSED, vertex.getX()-1, vertex.getY(), wall);
 		door = new StaticEntityDoor(Resources.DOOR_OPEN, 9, 5);
 		model.addEntity(player);
 		model.addEntity(bad1);
@@ -79,6 +92,9 @@ public class GameController {
 
 	}
 	
+	/**
+	 * 
+	 */
 	public EventHandler<ActionEvent> eventMoveBadGuy = new EventHandler<ActionEvent>(){
 
 		public void handle(ActionEvent event) {
@@ -93,39 +109,71 @@ public class GameController {
 		}
 	};
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Vector<Entity> getEntities(){
 		return model.getEntities();
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Model getModel() {
 		return model;
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setScore(int value){
 		score = score + value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getScore(){
 		return score;
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setGameOver(boolean value){
 		gameOver =  value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean getGameOver(){
 		return gameOver;
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setWin(boolean value){
 		win =  value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean getWin(){
 		return win;
 	}
 	
-/* * Launch game's display
+	/** Launch game's display
 	 * @param primaryStage the javafx's main stage
 	 */
 	public void start(Stage primaryStage){
@@ -133,6 +181,10 @@ public class GameController {
 		primaryStage.show();
 
 	}	
+	
+	/**
+	 * 
+	 */
 	public EventHandler<KeyEvent> eventHandlerkey = new EventHandler<KeyEvent>() {
 		@Override
 		public void handle (KeyEvent event) {
@@ -178,6 +230,14 @@ public class GameController {
 						viewFrame.win(score);
 					}
 				}
+				if(buttonOpen.getAction().isStartable()){
+					buttonOpen.getAction().actions();
+					System.out.println("open");
+				}
+				if(buttonClose.getAction().isStartable()){
+					buttonClose.getAction().actions();
+					System.out.println("close");
+				}
 				if(bad1.getAction().isStartable() || bad2.getAction().isStartable()){
 					gameOver= true;
 					timeline.stop();
@@ -191,6 +251,24 @@ public class GameController {
 		
 			
 	};
+	
+	/**
+	 * 	
+	 * @param edge
+	 */
+	public void openDoor(Edge edge){
+		model.getLabyrinth().openDoor(edge);
+		ViewFrame.drawWall(edge.getSource().getX(), edge.getSource().getY(), edge.getTarget().getX(), edge.getTarget().getY(), Color.WHITE);
+	}
+	
+	/**
+	 * 
+	 * @param edge
+	 */
+	public void closeDoor(Edge edge){
+		model.getLabyrinth().closeDoor(edge);
+		ViewFrame.drawWall(edge.getSource().getX(), edge.getSource().getY(), edge.getTarget().getX(), edge.getTarget().getY(), Color.BLUE);
+	}
 	
 	/**
 	 * Take the graph and paint it in the view
@@ -207,9 +285,9 @@ public class GameController {
 						ViewFrame.drawWall(i, j, i+1, j, ViewFrame.WALLCOLOR);
 					
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
-						ViewFrame.drawWall(i, j, i, j+1, Color.AZURE);
+						ViewFrame.drawWall(i, j, i, j+1, Color.BLUE);
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.EAST))
-						ViewFrame.drawWall(i, j, i+1, j, Color.AZURE);
+						ViewFrame.drawWall(i, j, i+1, j, Color.BLUE);
 				}
 				if(i==0 && j==Vertex.SOUTH_BORDER){
 					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.NORTH))					
@@ -218,9 +296,9 @@ public class GameController {
 						ViewFrame.drawWall(i, j, i+1, j, ViewFrame.WALLCOLOR);
 					
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.NORTH))
-						ViewFrame.drawWall(i, j, i, j-1, Color.AZURE);
+						ViewFrame.drawWall(i, j, i, j-1, Color.BLUE);
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.EAST))
-						ViewFrame.drawWall(i, j, i+1, j, Color.AZURE);
+						ViewFrame.drawWall(i, j, i+1, j, Color.BLUE);
 				}
 				if(i==Vertex.EAST_BORDER  && j==0){
 					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
@@ -229,9 +307,9 @@ public class GameController {
 						ViewFrame.drawWall(i, j, i-1, j, ViewFrame.WALLCOLOR);
 					
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
-						ViewFrame.drawWall(i, j, i, j+1, Color.AZURE);
+						ViewFrame.drawWall(i, j, i, j+1, Color.BLUE);
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.WEST))
-						ViewFrame.drawWall(i, j, i-1, j, Color.AZURE);
+						ViewFrame.drawWall(i, j, i-1, j, Color.BLUE);
 				}
 				if(i==Vertex.EAST_BORDER && j==Vertex.SOUTH_BORDER){
 					if (labyrinth.isWall(labyrinth.getVertexByXY(i,j), Directions.NORTH))					
@@ -240,9 +318,9 @@ public class GameController {
 						ViewFrame.drawWall(i, j, i-1, j, ViewFrame.WALLCOLOR);
 					
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.NORTH))
-						ViewFrame.drawWall(i, j, i, j-1, Color.AZURE);
+						ViewFrame.drawWall(i, j, i, j-1, Color.BLUE);
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.WEST))
-						ViewFrame.drawWall(i, j, i-1, j, Color.AZURE);
+						ViewFrame.drawWall(i, j, i-1, j, Color.BLUE);
 				}
 				//first column
 				if( i==0 && 0<j && j<Vertex.SOUTH_BORDER){
@@ -254,11 +332,11 @@ public class GameController {
 						ViewFrame.drawWall(i, j, i+1, j, ViewFrame.WALLCOLOR);
 					
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.NORTH))
-						ViewFrame.drawWall(i, j, i, j-1, Color.AZURE);
+						ViewFrame.drawWall(i, j, i, j-1, Color.BLUE);
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
-						ViewFrame.drawWall(i, j, i, j+1, Color.AZURE);
+						ViewFrame.drawWall(i, j, i, j+1, Color.BLUE);
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.EAST))
-						ViewFrame.drawWall(i, j, i+1, j, Color.AZURE);
+						ViewFrame.drawWall(i, j, i+1, j, Color.BLUE);
 				}
 				//first row
 				if(0<i && i<Vertex.EAST_BORDER && j==0){
@@ -270,11 +348,11 @@ public class GameController {
 						ViewFrame.drawWall(i, j, i+1, j, ViewFrame.WALLCOLOR);
 					
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
-						ViewFrame.drawWall(i, j, i, j+1, Color.AZURE);
+						ViewFrame.drawWall(i, j, i, j+1, Color.BLUE);
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.WEST))
-						ViewFrame.drawWall(i, j, i-1, j, Color.AZURE);
+						ViewFrame.drawWall(i, j, i-1, j, Color.BLUE);
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.EAST))
-						ViewFrame.drawWall(i, j, i+1, j, Color.AZURE);
+						ViewFrame.drawWall(i, j, i+1, j, Color.BLUE);
 				}
 				//last row
 				if(0<i && i<Vertex.EAST_BORDER && j==Vertex.SOUTH_BORDER){
@@ -286,11 +364,11 @@ public class GameController {
 						ViewFrame.drawWall(i, j, i+1, j, ViewFrame.WALLCOLOR);
 					
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.NORTH))
-						ViewFrame.drawWall(i, j, i, j-1, Color.AZURE);
+						ViewFrame.drawWall(i, j, i, j-1, Color.BLUE);
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.WEST))
-						ViewFrame.drawWall(i, j, i-1, j, Color.AZURE);
+						ViewFrame.drawWall(i, j, i-1, j, Color.BLUE);
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.EAST))
-						ViewFrame.drawWall(i, j, i+1, j, Color.AZURE);
+						ViewFrame.drawWall(i, j, i+1, j, Color.BLUE);
 				}
 				//last column
 				if( i==Vertex.EAST_BORDER && 0<j && j<Vertex.SOUTH_BORDER){
@@ -302,11 +380,11 @@ public class GameController {
 						ViewFrame.drawWall(i, j, i-1, j, ViewFrame.WALLCOLOR);
 					
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.NORTH))
-						ViewFrame.drawWall(i, j, i, j-1, Color.AZURE);
+						ViewFrame.drawWall(i, j, i, j-1, Color.BLUE);
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
-						ViewFrame.drawWall(i, j, i, j+1, Color.AZURE);
+						ViewFrame.drawWall(i, j, i, j+1, Color.BLUE);
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.WEST))
-						ViewFrame.drawWall(i, j, i-1, j, Color.AZURE);
+						ViewFrame.drawWall(i, j, i-1, j, Color.BLUE);
 				}
 				//not border
 				if(0<i && i<Vertex.EAST_BORDER && 0<j && j<Vertex.SOUTH_BORDER){
@@ -320,13 +398,13 @@ public class GameController {
 						ViewFrame.drawWall(i, j, i+1, j, ViewFrame.WALLCOLOR);
 					
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.NORTH))
-						ViewFrame.drawWall(i, j, i, j-1, Color.AZURE);
+						ViewFrame.drawWall(i, j, i, j-1, Color.BLUE);
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.SOUTH))
-						ViewFrame.drawWall(i, j, i, j+1, Color.AZURE);
+						ViewFrame.drawWall(i, j, i, j+1, Color.BLUE);
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.WEST))
-						ViewFrame.drawWall(i, j, i-1, j, Color.AZURE);
+						ViewFrame.drawWall(i, j, i-1, j, Color.BLUE);
 					if (labyrinth.isClosedDoor(labyrinth.getVertexByXY(i,j), Directions.EAST))
-						ViewFrame.drawWall(i, j, i+1, j, Color.AZURE);
+						ViewFrame.drawWall(i, j, i+1, j, Color.BLUE);
 				}
 			}
 		}
