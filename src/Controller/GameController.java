@@ -29,7 +29,8 @@ public class GameController {
 	private ViewFrame viewFrame;
 	private Player player;
 	private BadGuy bad1, bad2;
-	private StaticEntity door, candy1, candy2, candy3, candy4, buttonOpen, buttonClose;
+	private StaticEntity door, buttonOpen, buttonClose;
+	private Vector<StaticEntity> candyList ;
 	private Timeline timeline;
 	
 	
@@ -70,10 +71,11 @@ public class GameController {
 		bad1.setPosY(2);
 		bad2 = new BadGuy(3,6);
 
-		candy1 = new StaticEntity(Resources.CANDY_1, 2, 1, new StaticCandyAction(10));
-		candy2 = new StaticEntity(Resources.CANDY_2, 3, 4, new StaticCandyAction(20));
-		candy3 = new StaticEntity(Resources.CANDY_3, 5, 5, new StaticCandyAction(30));
-		candy4 = new StaticEntity(Resources.CANDY_4, 6, 5, new StaticCandyAction(40));
+		candyList = new Vector<StaticEntity>() ;
+		candyList.add(new StaticEntity(Resources.CANDY_1, 2, 1, new StaticCandyAction(10))) ; 
+		candyList.add(new StaticEntity(Resources.CANDY_2, 3, 4, new StaticCandyAction(20))) ;
+		candyList.add(new StaticEntity(Resources.CANDY_3, 5, 5, new StaticCandyAction(30))) ;
+		candyList.add(new StaticEntity(Resources.CANDY_4, 6, 5, new StaticCandyAction(40))) ;  
 
 		buttonOpen = new StaticEntity(Resources.BUTTON_OPEN, vertex.getX()+1, vertex.getY(), new StaticButtonOpenAction(wall));
 		buttonClose = new StaticEntity(Resources.BUTTON_CLOSED, vertex.getX()-1, vertex.getY(), new StaticButtonCloseAction(wall));
@@ -81,17 +83,18 @@ public class GameController {
 
 		model.addEntity(player);
 		model.addEntity(bad1);
-		model.addEntity(candy1);
-		model.addEntity(candy2);
-		model.addEntity(candy3);
-		model.addEntity(candy4);
+		
+		for(StaticEntity candy : candyList) {
+			model.addEntity(candy);
+		}
+		
 		model.addEntity(buttonOpen);
 		model.addEntity(buttonClose);
 		model.addEntity(door);
 		model.addEntity(bad2);
 
 		timeline = new Timeline(new KeyFrame(
-		        Duration.millis(2500),
+		        Duration.millis(1200),
 		        eventMoveBadGuy));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
@@ -199,34 +202,16 @@ public class GameController {
 			if (player.getDirection(keycode) != null){
 				Player.getInstance().move(Player.getInstance().getDirection(keycode));
 				
-				if(candy1.getAction().isStartable()){
-					candy1.getAction().actions();
-					candy1.setPosX(-1);
-					viewFrame.update();
-					model.supEntity(candy1);
-					viewFrame.getPane().getChildren().remove(candy1);
+				for(StaticEntity candy : candyList) {
+					if(candy.getAction().isStartable()){
+						candy.getAction().actions();
+						candy.setPosX(-1);
+						viewFrame.update();
+						model.supEntity(candy);
+						viewFrame.getPane().getChildren().remove(candy);
+					}
 				}
-				if(candy2.getAction().isStartable()){
-					candy2.getAction().actions();
-					candy2.setPosX(-1);
-					viewFrame.update();
-					model.supEntity(candy2);
-					viewFrame.getPane().getChildren().remove(candy2);
-				}
-				if(candy3.getAction().isStartable()){
-					candy3.getAction().actions();
-					candy3.setPosX(-1);
-					viewFrame.update();
-					model.supEntity(candy3);
-					viewFrame.getPane().getChildren().remove(candy3);
-				}
-				if(candy4.getAction().isStartable()){
-					candy4.getAction().actions();
-					candy4.setPosX(-1);
-					viewFrame.update();
-					model.supEntity(candy4);
-					viewFrame.getPane().getChildren().remove(candy4);
-				}
+				
 				viewFrame.update();
 				
 				if(door.getAction().isStartable()){
