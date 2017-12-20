@@ -26,6 +26,7 @@ public class StaticCandyAction extends AbstractAction{
 	@Override
 	public void actions() {
 		GameController.getInstance().setScore(value);
+		entity.setPosX(-1);
 	}
 
 }

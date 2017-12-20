@@ -60,11 +60,15 @@ public class Player {
             assertEquals(p.getPosX(), new Float(0.0f));
             assertEquals(p.getPosY(), new Float(0.0f));
             robot.keyPress(KeyCode.DOWN);
+            robot.keyRelease(KeyCode.DOWN);
             robot.keyPress(KeyCode.RIGHT);
-            //assertEquals(p.getPosX(), new Float(1.0f));
-            //assertEquals(p.getPosY(), new Float(1.0f));
+            robot.keyRelease(KeyCode.RIGHT);
+            assertEquals(p.getPosX(), new Float(1.0f));
+            assertEquals(p.getPosY(), new Float(1.0f));
             robot.keyPress(KeyCode.UP);
+            robot.keyRelease(KeyCode.UP);
             robot.keyPress(KeyCode.LEFT);
+            robot.keyRelease(KeyCode.LEFT);
             assertEquals(p.getPosX(), new Float(0.0f));
             assertEquals(p.getPosY(), new Float(0.0f));
         }

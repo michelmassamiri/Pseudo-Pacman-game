@@ -28,10 +28,9 @@ public class GameController {
 	private Model model;
 	private ViewFrame viewFrame;
 	private Player player;
-	private BadGuy bad1, bad2;
 	private StaticEntity door, candy1, candy2, candy3, candy4, buttonOpen, buttonClose;
 	private Timeline timeline;
-	
+	private Vector<BadGuy> badGuys;
 	
 
 	private int score;
@@ -65,10 +64,9 @@ public class GameController {
 	    model.getLabyrinth().closeDoor(wall);
 		player = Player.getInstance();
 
-		bad1 = new BadGuy();
-		bad1.setPosX(1);
-		bad1.setPosY(2);
-		bad2 = new BadGuy(3,6);
+		badGuys = new Vector<>();
+		badGuys.add(new BadGuy(1, 2));
+		badGuys.add(new BadGuy(3, 6));
 
 		candy1 = new StaticEntity(Resources.CANDY_1, 2, 1, new StaticCandyAction(10));
 		candy2 = new StaticEntity(Resources.CANDY_2, 3, 4, new StaticCandyAction(20));
@@ -80,7 +78,6 @@ public class GameController {
 		door = new StaticEntity(Resources.DOOR_OPEN, 9, 5, new StaticDoorAction());
 
 		model.addEntity(player);
-		model.addEntity(bad1);
 		model.addEntity(candy1);
 		model.addEntity(candy2);
 		model.addEntity(candy3);
@@ -88,7 +85,8 @@ public class GameController {
 		model.addEntity(buttonOpen);
 		model.addEntity(buttonClose);
 		model.addEntity(door);
-		model.addEntity(bad2);
+		for(BadGuy b : badGuys)
+			model.addEntity(b);
 
 		timeline = new Timeline(new KeyFrame(
 		        Duration.millis(2500),
@@ -104,13 +102,15 @@ public class GameController {
 	public EventHandler<ActionEvent> eventMoveBadGuy = new EventHandler<ActionEvent>(){
 
 		public void handle(ActionEvent event) {
-			bad1.Manhatan(model.getLabyrinth());
-			bad2.Manhatan(model.getLabyrinth());
+			for(BadGuy b : badGuys)
+				b.Manhatan(model.getLabyrinth());
 			viewFrame.update();
-			if(bad1.getAction().isStartable() || bad2.getAction().isStartable()){
-				gameOver= true;
-				timeline.stop();
-				viewFrame.gameOver(score);
+			for(BadGuy b : badGuys) {
+				if(b.getAction().isStartable()) {
+					gameOver = true;
+					timeline.stop();
+					viewFrame.gameOver(score);
+				}
 			}
 		}
 	};
@@ -196,39 +196,36 @@ public class GameController {
 		public void handle (KeyEvent event) {
 
 			KeyCode keycode = event.getCode();
+			System.out.println(player.getDirection(keycode));
 			if (player.getDirection(keycode) != null){
 				Player.getInstance().move(Player.getInstance().getDirection(keycode));
-				
+
 				if(candy1.getAction().isStartable()){
 					candy1.getAction().actions();
-					candy1.setPosX(-1);
 					viewFrame.update();
 					model.supEntity(candy1);
 					viewFrame.getPane().getChildren().remove(candy1);
 				}
 				if(candy2.getAction().isStartable()){
 					candy2.getAction().actions();
-					candy2.setPosX(-1);
 					viewFrame.update();
 					model.supEntity(candy2);
 					viewFrame.getPane().getChildren().remove(candy2);
 				}
 				if(candy3.getAction().isStartable()){
 					candy3.getAction().actions();
-					candy3.setPosX(-1);
 					viewFrame.update();
 					model.supEntity(candy3);
 					viewFrame.getPane().getChildren().remove(candy3);
 				}
 				if(candy4.getAction().isStartable()){
 					candy4.getAction().actions();
-					candy4.setPosX(-1);
 					viewFrame.update();
 					model.supEntity(candy4);
 					viewFrame.getPane().getChildren().remove(candy4);
 				}
 				viewFrame.update();
-				
+
 				if(door.getAction().isStartable()){
 					door.getAction().actions();
 					if(win){
@@ -244,10 +241,15 @@ public class GameController {
 					buttonClose.getAction().actions();
 					System.out.println("close");
 				}
-				if(bad1.getAction().isStartable() || bad2.getAction().isStartable()){
-					gameOver= true;
-					timeline.stop();
-					viewFrame.gameOver(score);
+
+				for(BadGuy b : badGuys)
+				{
+					if(b.getAction().isStartable())
+					{
+						gameOver = true;
+						timeline.stop();
+						viewFrame.gameOver(score);
+					}
 				}
 							
 			}
