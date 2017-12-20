@@ -12,6 +12,8 @@ import Model.Resources.Resources;
 
 import View.ViewFrame;
 
+import com.sun.javafx.robot.FXRobot;
+import com.sun.javafx.robot.FXRobotFactory;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.Animation;
@@ -32,6 +34,7 @@ public class GameController {
     private StaticEntity buttonOpen, buttonClose, door;
     private Timeline timeline;
     private Vector<BadGuy> badGuys;
+    private FXRobot r;
 
 
     private int score;
@@ -178,6 +181,7 @@ public class GameController {
      * @param primaryStage the javafx's main stage
      */
     public void start(Stage primaryStage) {
+        r = FXRobotFactory.createRobot(primaryStage.getScene());
         viewFrame.start(primaryStage, Vertex.EAST_BORDER + 1, Vertex.SOUTH_BORDER + 1);
         primaryStage.show();
 
@@ -392,6 +396,11 @@ public class GameController {
                     }
                 }
             }
+        }
+
+        public FXRobot getRobot()
+        {
+            return r;
         }
 
 }
