@@ -28,7 +28,6 @@ public class GameController {
     private PlayerController playerController;
     private Model model;
     private ViewFrame viewFrame;
-    private Player player;
     private Vector<StaticEntity> candyList;
     private StaticEntity buttonOpen, buttonClose, door;
     private Timeline timeline;
@@ -66,7 +65,7 @@ public class GameController {
             wall = model.getLabyrinth().getEdge(vertex, Directions.NORTH);
         }
         model.getLabyrinth().closeDoor(wall);
-        player = Player.getInstance();
+        //player = Player.getInstance();
 
         badGuys = new Vector<>();
         badGuys.add(new BadGuy(1, 2));
@@ -82,7 +81,7 @@ public class GameController {
         buttonClose = new StaticEntity(Resources.BUTTON_CLOSED, vertex.getX(), vertex.getY() - 1, new StaticButtonCloseAction(wall));
         door = new StaticEntity(Resources.DOOR_OPEN, 9, 5, new StaticDoorAction());
 
-        model.addEntity(player);
+        model.addEntity(Player.getInstance());
         for (StaticEntity candy : candyList) {
             model.addEntity(candy);
         }
