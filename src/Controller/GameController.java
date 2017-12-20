@@ -25,6 +25,7 @@ import javafx.util.Duration;
 
 public class GameController {
     private static GameController instance = null;
+    private PlayerController playerController;
     private Model model;
     private ViewFrame viewFrame;
     private Player player;
@@ -55,6 +56,7 @@ public class GameController {
     private GameController() {
         model = new Model();
         viewFrame = ViewFrame.getInstance();
+        playerController = new PlayerController();
         model.loadAll();
         //Edge wall = model.getLabyrinth().closeDoorRandom();
         Vertex vertex = model.getLabyrinth().randomVertexByDir();
@@ -192,8 +194,8 @@ public class GameController {
         public void handle(KeyEvent event) {
 
             KeyCode keycode = event.getCode();
-            if (player.getDirection(keycode) != null) {
-                Player.getInstance().move(Player.getInstance().getDirection(keycode));
+            if (Player.getInstance().getDirection(keycode) != null) {
+            	playerController.moveChange(keycode);
 
                     for (StaticEntity candy : candyList) {
                         if (candy.getAction().isStartable()) {
