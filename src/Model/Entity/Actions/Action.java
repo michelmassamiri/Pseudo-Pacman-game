@@ -1,5 +1,7 @@
 package Model.Entity.Actions;
 
+import Model.Entity.StaticEntity;
+
 public interface Action {
 
     /**
@@ -29,4 +31,10 @@ public interface Action {
      * @return true if all conditions are met, false otherwise
      */
     boolean isStartable();
+
+    /**
+     * Method that set a specific entity to the action, to make it easier to work
+     * @param e the entity to bind to the action
+     */
+    void setEntity(StaticEntity e);
 }

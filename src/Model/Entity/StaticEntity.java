@@ -15,11 +15,7 @@ public class StaticEntity implements Entity {
 
 	
 	public StaticEntity(Resources resource) {
-		pos = new Vector<Float>();
-		imageView = new ImageView(ResourceManager.getInstance().get(resource));
-		
-		pos.add(new Float(0.0f));
-        pos.add(new Float(0.0f));
+		this(resource, 0.0f, 0.0f);
 	}
 	
 	public StaticEntity(Resources resource, float x, float y) {
@@ -28,6 +24,13 @@ public class StaticEntity implements Entity {
 		
 		pos.add(x);
         pos.add(y);
+	}
+
+	public StaticEntity(Resources resources, float x, float y, Action action)
+	{
+		this(resources, x, y);
+		this.action = action;
+		this.action.setEntity(this);
 	}
 
 	public Float getPosX() { return pos.elementAt(0); }

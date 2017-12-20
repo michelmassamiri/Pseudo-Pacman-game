@@ -1,22 +1,26 @@
 package Model.Entity.Actions;
 
 import Controller.GameController;
-import Model.Entity.StaticEntityCandy;
+import Model.Entity.StaticEntity;
 
 
 public class StaticCandyAction extends AbstractAction{
 
-    private	StaticEntityCandy candy;
     private int value;
 	
-    public StaticCandyAction(StaticEntityCandy entity, int score){
+    public StaticCandyAction(StaticEntity entity, int score){
     	super();
-    	candy = entity;
+    	this.entity = entity;
     	value = score;
     }
-    
+
+    public StaticCandyAction(int score){
+        super();
+        value = score;
+    }
+
     public boolean isStartable() {
-        return candy.getPos().equals(p.getPos());
+        return entity.getPos().equals(p.getPos());
     }
     
 	@Override

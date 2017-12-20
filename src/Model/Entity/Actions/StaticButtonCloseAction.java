@@ -2,20 +2,24 @@ package Model.Entity.Actions;
 
 import Controller.GameController;
 import Model.Edge;
-import Model.Entity.StaticEntityButtonClose;
+import Model.Entity.StaticEntity;
 
 public class StaticButtonCloseAction extends AbstractAction {
-	private	StaticEntityButtonClose button;
 	private Edge edge;
 	
-    public StaticButtonCloseAction(StaticEntityButtonClose entity, Edge edge ){
+    public StaticButtonCloseAction(StaticEntity entity, Edge edge ){
     	super();
-    	button = entity;
+    	this.entity = entity;
     	this.edge = edge;
     }
+
+	public StaticButtonCloseAction(Edge edge ){
+		super();
+		this.edge = edge;
+	}
     
     public boolean isStartable() {
-        return button.getPos().equals(p.getPos());
+        return entity.getPos().equals(p.getPos());
     }
     
 	@Override

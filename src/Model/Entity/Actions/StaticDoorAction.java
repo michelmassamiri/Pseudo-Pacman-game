@@ -1,20 +1,24 @@
 package Model.Entity.Actions;
 
 import Controller.GameController;
-import Model.Entity.StaticEntityDoor;
+import Model.Entity.StaticEntity;
 
 public class StaticDoorAction extends AbstractAction{
 
-	private StaticEntityDoor door;
+	private StaticEntity door;
 	
-	public StaticDoorAction(StaticEntityDoor entity){
+	public StaticDoorAction(StaticEntity entity){
 		super();
-		door = entity;
+		this.entity = entity;
+	}
+
+	public StaticDoorAction(){
+		super();
 	}
 	
 	@Override
     public boolean isStartable() {
-        return p.getPos().equals(door.getPos());
+        return p.getPos().equals(entity.getPos());
     }
 	
 	

@@ -4,6 +4,10 @@ import java.util.Vector;
 
 import Model.*;
 import Model.Entity.*;
+import Model.Entity.Actions.StaticButtonCloseAction;
+import Model.Entity.Actions.StaticButtonOpenAction;
+import Model.Entity.Actions.StaticCandyAction;
+import Model.Entity.Actions.StaticDoorAction;
 import Model.Resources.Resources;
 
 import View.ViewFrame;
@@ -25,10 +29,7 @@ public class GameController {
 	private ViewFrame viewFrame;
 	private Player player;
 	private BadGuy bad1, bad2;
-	private StaticEntityDoor door;
-	private StaticEntityCandy candy1, candy2, candy3, candy4;
-	private StaticEntityButtonOpen buttonOpen;
-	private StaticEntityButtonClose buttonClose;
+	private StaticEntity door, candy1, candy2, candy3, candy4, buttonOpen, buttonClose;
 	private Timeline timeline;
 	
 	
@@ -63,17 +64,21 @@ public class GameController {
 	    }
 	    model.getLabyrinth().closeDoor(wall);
 		player = Player.getInstance();
+
 		bad1 = new BadGuy();
 		bad1.setPosX(1);
 		bad1.setPosY(2);
 		bad2 = new BadGuy(3,6);
-		candy1 = new StaticEntityCandy(Resources.CANDY_1, 2, 1, 10);
-		candy2 = new StaticEntityCandy(Resources.CANDY_2, 3, 4, 20);
-		candy3 = new StaticEntityCandy(Resources.CANDY_3, 5, 5, 30);
-		candy4 = new StaticEntityCandy(Resources.CANDY_4, 6, 5, 40);
-		buttonOpen = new StaticEntityButtonOpen(Resources.BUTTON_OPEN, vertex.getX()+1, vertex.getY(), wall);
-		buttonClose = new StaticEntityButtonClose(Resources.BUTTON_CLOSED, vertex.getX()-1, vertex.getY(), wall);
-		door = new StaticEntityDoor(Resources.DOOR_OPEN, 9, 5);
+
+		candy1 = new StaticEntity(Resources.CANDY_1, 2, 1, new StaticCandyAction(10));
+		candy2 = new StaticEntity(Resources.CANDY_2, 3, 4, new StaticCandyAction(20));
+		candy3 = new StaticEntity(Resources.CANDY_3, 5, 5, new StaticCandyAction(30));
+		candy4 = new StaticEntity(Resources.CANDY_4, 6, 5, new StaticCandyAction(40));
+
+		buttonOpen = new StaticEntity(Resources.BUTTON_OPEN, vertex.getX()+1, vertex.getY(), new StaticButtonOpenAction(wall));
+		buttonClose = new StaticEntity(Resources.BUTTON_CLOSED, vertex.getX()-1, vertex.getY(), new StaticButtonCloseAction(wall));
+		door = new StaticEntity(Resources.DOOR_OPEN, 9, 5, new StaticDoorAction());
+
 		model.addEntity(player);
 		model.addEntity(bad1);
 		model.addEntity(candy1);
@@ -84,6 +89,7 @@ public class GameController {
 		model.addEntity(buttonClose);
 		model.addEntity(door);
 		model.addEntity(bad2);
+
 		timeline = new Timeline(new KeyFrame(
 		        Duration.millis(2500),
 		        eventMoveBadGuy));
