@@ -384,9 +384,4 @@ public class ViewFrame {
 				
 	}
 	
-	public void exit() {
-		
-		Platform.exit();
-	}
-	
 }
