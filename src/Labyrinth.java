@@ -8,6 +8,7 @@ public class Labyrinth extends Application{
 	public static void main(String[] args) {
 		game = GameController.getInstance();
 		launch(args);
+		
 	}
 	
 	
@@ -27,5 +28,7 @@ public class Labyrinth extends Application{
 	public void stop() {
 		System.exit(0);
 	}
+	
+	
 
 }

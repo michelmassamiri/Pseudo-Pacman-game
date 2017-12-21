@@ -1,11 +1,15 @@
 package View;
 
 
+import com.sun.glass.events.WindowEvent;
+
 import Controller.GameController;
 import Model.Directions;
 import Model.Labyrinth;
 import Model.Vertex;
+import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -336,12 +340,14 @@ public class ViewFrame {
 	public Pane getPane(){
 		return pane;
 	}
-	
+	/*
+	 * Window that shows game results and status  
+	 */
 	public void gameOver(int score){
 		Stage stage = new Stage();
 		VBox boxOver = new VBox();
 		
-		Label textOver = new Label("You Loose !!");
+		Label textOver = new Label("You loose !!");
 		Label textScore = new Label("your score: "+score);
 		boxOver.getChildren().add(textOver);
 		boxOver.getChildren().add(textScore);
@@ -351,8 +357,13 @@ public class ViewFrame {
 		stage.setHeight(75);
 		stage.setWidth(200);
 		stage.setResizable(false);
+		stage.setOnCloseRequest(windowEvent -> Platform.exit());
 		stage.show();
-	}
+				
+		}
+			
+									
+
 	
 	public void win(int score){
 		Stage stage = new Stage();
@@ -368,8 +379,14 @@ public class ViewFrame {
 		stage.setHeight(75);
 		stage.setWidth(200);
 		stage.setResizable(false);
+		stage.setOnCloseRequest(windowEvent -> Platform.exit());
 		stage.show();
+				
 	}
 	
+	public void exit() {
+		
+		Platform.exit();
+	}
 	
 }

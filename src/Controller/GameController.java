@@ -228,15 +228,20 @@ public class GameController {
                     if (badGuyController.getGameStatus()== true) {
     				timeline.stop();
     				viewFrame.gameOver(score);
-                    }
-                   
-                }
-                if (keycode == KeyCode.ESCAPE)
-                    System.exit(0);
+    				
+  				
+                  }
+                                       
+            	}
+
+            	if (keycode == KeyCode.ESCAPE)
+            		System.exit(0);
             }
-
-
+        	
         }
+        
+
+        
     };
 
         /**
