@@ -118,6 +118,7 @@ public class GameController {
      */
     public Vector<Entity> getEntities() {
         return model.getEntities();
+
     }    
     
     /*
