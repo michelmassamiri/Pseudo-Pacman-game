@@ -307,7 +307,7 @@ public class ViewFrame {
 	}
 	
 
-	/*
+	/**
 	 * We use SetOnKeyPressed instead of setOnAction for the event that makes move player
 	 */
 	public void setOnKeyPressed () {
@@ -325,7 +325,8 @@ public class ViewFrame {
 			updateObject(GameController.getInstance().getEntities().elementAt(i).getDrawable(), GameController.getInstance().getEntities().elementAt(i).getPosX(), GameController.getInstance().getEntities().elementAt(i).getPosY());
 		}
 	}
-	
+
+
 	public void updateObject(ImageView sprite, Float x, Float y){
 		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN) ;
 		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN) ;
@@ -337,7 +338,7 @@ public class ViewFrame {
 	public Pane getPane(){
 		return pane;
 	}
-	/*
+	/**
 	 * Window that shows game results and status  
 	 */
 	public void gameOver(int score){
@@ -358,10 +359,12 @@ public class ViewFrame {
 		stage.show();
 				
 		}
-			
-									
 
-	
+
+	/**
+	 * Shows the win pannel
+	 * @param score the score of the player had during the game
+	 */
 	public void win(int score){
 		Stage stage = new Stage();
 		VBox boxOver = new VBox();

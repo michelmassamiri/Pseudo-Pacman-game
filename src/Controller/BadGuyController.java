@@ -21,7 +21,7 @@ public class BadGuyController {
 	}
 	
 	
-	/*
+	/**
 	 * Controller demands Model to pay attention if they have crashed the player
 	 */
 	public boolean getGameStatus(){
@@ -34,7 +34,7 @@ public class BadGuyController {
 		return gameOver;
 	}
 	
-	/*
+	/**
 	 * Controller sends commands to mode in order to make Bad Guys move by themselves
 	 */
 	
