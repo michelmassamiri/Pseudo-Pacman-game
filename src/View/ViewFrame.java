@@ -1,15 +1,12 @@
 package View;
 
 
-import com.sun.glass.events.WindowEvent;
-
 import Controller.GameController;
 import Model.Directions;
 import Model.Labyrinth;
 import Model.Vertex;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -18,7 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 
@@ -60,6 +56,7 @@ public class ViewFrame {
 	 * @param primaryStage the main stage of the game
 	 */
 	public void start(Stage primaryStage, int nbx, int nby){
+	    
 		primaryStage.setTitle("Pseudo PAC-MAN");
 		drawFrame(primaryStage, nbx, nby);
 
