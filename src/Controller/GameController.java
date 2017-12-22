@@ -114,14 +114,15 @@ public class GameController {
     };
 
     /**
-     * @return
+     * Method that gives the Entity table of the Game
+     * @return the Entity table
      */
     public Vector<Entity> getEntities() {
         return model.getEntities();
 
     }    
     
-    /*
+    /**
      * Allows to get current model
      */
     public Model getModel() {
@@ -139,7 +140,8 @@ public class GameController {
     }
 
     /**
-     * @param value
+     * Method used to add a amount of point to the current score
+     * @param value the score to add
      */
     public void setScore(int value) {
         score = score + value;
@@ -154,28 +156,32 @@ public class GameController {
     }
 
     /**
-     * @param value
+     * Set if the game is over
+     * @param value true to make the game over, false otherwise
      */
     public void setGameOver(boolean value) {
     	GameOver = value;
     }
 
     /**
-     * @return
+     * Methods that tells if the game is over
+     * @return true if the game is other, false otherwise
      */
     public boolean getGameOver() {
         return GameOver;
     }
 
     /**
-     * @param value
+     * Set the win value to the game, meaning set if the player won
+     * @param value true if the player won, false otherwise
      */
     public void setWin(boolean value) {
         win = value;
     }
 
     /**
-     * @return 
+     * Methods that tells if the player won
+     * @return true if the player won, false otherwise
      */
     public boolean getWin() {
         return win;
